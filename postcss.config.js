@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 18:25:10
- * @LastEditTime: 2024-06-17 18:45:37
+ * @LastEditTime: 2024-06-19 16:14:06
  * @Author: John
  */
 export default {
@@ -11,8 +11,8 @@ export default {
       rootValue: 37.5,
       propList: ["*"],
       exclude: (e) => {
-        if (/.module\.css$/.test(e)) {
-          console.log(e);
+        if (/.*-m\.css$/.test(e) || /.module\.css$/.test(e)) {
+          // console.log(e);
           return false;
         }
         return true;

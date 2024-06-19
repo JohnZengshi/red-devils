@@ -1,0 +1,302 @@
+.container {
+  padding: 0 14px;
+}
+
+.LevelUp {
+  padding-bottom: 32px;
+  .content {
+    margin-top: 16px;
+    .content_box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .box_item {
+        /* 自动布局子元素 */
+        width: 153px;
+        height: 90px;
+        border-radius: 12px;
+        opacity: 1;
+
+        /* 自动布局 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px;
+        padding: 26px 23px;
+
+        background: #171719;
+
+        box-shadow: 0px 4px 10px 0px rgba(138, 29, 19, 0.3),
+          inset 0px 0px 6px 0px #8a1d13;
+
+        z-index: 0;
+
+        box-sizing: border-box;
+        span {
+          &:nth-of-type(1) {
+            /* 自动布局子元素 */
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 10px;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #4d4d4d;
+
+            z-index: 0;
+          }
+          &:nth-of-type(2) {
+            /* 自动布局子元素 */
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+
+            z-index: 1;
+          }
+        }
+      }
+
+      .box_arrow {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .content_price {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
+      padding: 0 10px;
+      span {
+        &:nth-of-type(1) {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 10px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 0;
+        }
+        &:nth-of-type(2) {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 10px;
+          font-weight: bold;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #fc872b;
+
+          z-index: 1;
+        }
+      }
+    }
+
+    .content_price_des {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 10px;
+      padding: 0 10px;
+      span {
+        /* 自动布局子元素 */
+        opacity: 1;
+
+        font-family: DM Sans;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 0em;
+
+        font-variation-settings: "opsz" auto;
+        font-feature-settings: "kern" on;
+        color: #4d4d4d;
+
+        z-index: 1;
+      }
+    }
+
+    .content_btn {
+      /* 自动布局子元素 */
+      width: 331px;
+      height: 40px;
+      border-radius: 10px;
+      opacity: 1;
+
+      /* 自动布局 */
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 11px 40px;
+      gap: 10px;
+
+      background: #fc872b;
+
+      z-index: 3;
+
+      box-sizing: border-box;
+
+      margin: 0 auto;
+
+      margin-top: 14px;
+
+      span {
+        /* 自动布局子元素 */
+        opacity: 1;
+
+        font-family: DM Sans;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: normal;
+        text-align: center;
+        letter-spacing: 0em;
+
+        font-variation-settings: "opsz" auto;
+        font-feature-settings: "kern" on;
+        color: #ffffff;
+
+        z-index: 0;
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      &[disabled] {
+        /* 自动布局子元素 */
+        background: #666666;
+      }
+    }
+  }
+
+  .upgrade_conditions {
+    margin-top: 26px;
+    > span {
+      /* 自动布局子元素 */
+      opacity: 1;
+
+      font-family: DM Sans;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: normal;
+      letter-spacing: 0em;
+
+      font-variation-settings: "opsz" auto;
+      font-feature-settings: "kern" on;
+      color: #ffffff;
+
+      z-index: 0;
+    }
+    > ul {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      margin-top: 16px;
+      > li {
+        /* 自动布局子元素 */
+        width: 344px;
+        border-radius: 16px;
+        opacity: 1;
+
+        /* 自动布局 */
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px;
+
+        background: #171719;
+
+        z-index: 0;
+
+        gap: 10px;
+        box-sizing: border-box;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          span {
+            &:nth-of-type(1) {
+              /* 自动布局子元素 */
+              opacity: 1;
+
+              font-family: DM Sans;
+              font-size: 12px;
+              font-weight: bold;
+              line-height: normal;
+              letter-spacing: 0em;
+
+              font-variation-settings: "opsz" auto;
+              color: #fc872b;
+
+              z-index: 0;
+            }
+            &:nth-of-type(2) {
+              /* 自动布局子元素 */
+              opacity: 1;
+
+              font-family: DM Sans;
+              font-size: 12px;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 0em;
+
+              font-variation-settings: "opsz" auto;
+              color: #ffffff;
+
+              z-index: 1;
+            }
+          }
+        }
+
+        > ul {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          li {
+            /* 自动布局子元素 */
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #eaeaea;
+
+            z-index: 0;
+          }
+        }
+      }
+    }
+  }
+}

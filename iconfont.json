@@ -1,8 +1,8 @@
 {
-    "symbol_url": "请参考README.md，复制官网提供的JS链接",
-    "use_typescript": false,
-    "save_dir": "./src/components/iconfont",
-    "trim_icon_prefix": "icon",
-    "unit": "px",
-    "default_icon_size": 18
+  "symbol_url": "//at.alicdn.com/t/c/font_4589567_vzk80gocu8s.js",
+  "use_typescript": true,
+  "save_dir": "./src/components/iconfont",
+  "trim_icon_prefix": "icon",
+  "unit": "px",
+  "default_icon_size": 18
 }

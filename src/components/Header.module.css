@@ -1,0 +1,70 @@
+/*
+ * @LastEditors: John
+ * @Date: 2024-06-18 15:19:21
+ * @LastEditTime: 2024-06-18 18:49:40
+ * @Author: John
+ */
+.header {
+  background-color: #101010;
+  padding: 0 15px;
+  .header_top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 0.25px solid #333333;
+    padding: 10px 0;
+
+    .header_logo {
+      width: 24px;
+      height: 24px;
+    }
+    .header_title {
+      /* 自动布局子元素 */
+      opacity: 1;
+
+      font-family: DM Sans;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: normal;
+      letter-spacing: 0em;
+
+      font-variation-settings: "opsz" auto;
+      font-feature-settings: "kern" on;
+      color: #ffffff;
+
+      z-index: 1;
+    }
+    .header_lang {
+      width: 24px;
+      height: 24px;
+      margin-left: auto;
+    }
+  }
+
+  .header_nav {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    span {
+      /* 自动布局子元素 */
+      opacity: 1;
+
+      font-family: DM Sans;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: normal;
+      letter-spacing: 0em;
+
+      font-variation-settings: "opsz" auto;
+      font-feature-settings: "kern" on;
+      color: #ffffff;
+
+      z-index: 1;
+    }
+
+    .header_nav_icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

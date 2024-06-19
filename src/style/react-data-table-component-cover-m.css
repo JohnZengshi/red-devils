@@ -1,0 +1,54 @@
+.rdt_Table {
+  width: 100vw !important;
+  background-color: transparent !important;
+  padding: 0 14px;
+
+  .rdt_TableHead {
+    .rdt_TableHeadRow {
+      height: 16px !important;
+      min-height: 16px !important;
+      background-color: transparent !important;
+
+      .rdt_TableCol {
+        div {
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #eaeaea;
+        }
+      }
+    }
+  }
+
+  .rdt_TableBody {
+    gap: 10px;
+    margin-top: 14px;
+    .rdt_TableRow {
+      height: 18px !important;
+      min-height: 18px !important;
+      background-color: transparent !important;
+      .rdt_TableCell {
+        div {
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

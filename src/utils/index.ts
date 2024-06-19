@@ -1,11 +1,13 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 18:19:27
- * @LastEditTime: 2024-06-18 10:48:05
+ * @LastEditTime: 2024-06-19 17:07:43
  * @Author: John
  */
-
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import Toast from "antd-mobile/es/components/toast";
+import i18next from "i18next";
 
 export const ua = navigator.userAgent;
 export const isIOS = /iphone|ipad|ipod|ios/i.test(ua);
@@ -72,8 +74,12 @@ export function copyText(text: string) {
   isCopySuccess &&
     Toast.show({
       icon: "success",
-      content: "Copy successful",
+      content: i18next.t("复制成功"),
     });
   // 8、 销毁DOM
   document.body.removeChild(input);
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

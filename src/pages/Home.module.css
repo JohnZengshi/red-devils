@@ -1,10 +1,783 @@
+.container {
+  padding: 0 14px;
+}
+
 .Home {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  .text {
-    font-size: 20px;
+  padding-bottom: 69px;
+  box-sizing: border-box;
+
+  .userinfo {
+    width: 345px;
+    height: 136px;
+    border-radius: 16px;
+    opacity: 1;
+
+    background: #171719;
+
+    box-shadow: 0px 4px 10px 0px rgba(138, 29, 19, 0.3),
+      inset 0px 0px 8px 0px #8a1d13;
+
+    padding: 14px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-top: 21px;
+
+    .userinfo_top {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      .userinfo_top_left {
+        width: 46px;
+        height: 46px;
+        border-radius: 10.12px;
+        opacity: 1;
+      }
+      .userinfo_top_right {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        .userinfo_top_right_wallet {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          span {
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+
+            z-index: 0;
+          }
+          .userinfo_top_right_wallet_disconnect {
+            width: 16px;
+            height: 16px;
+          }
+        }
+        .userinfo_top_right_btns {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          .userinfo_top_right_btns_item {
+            /* 自动布局子元素 */
+            border-radius: 6px;
+            opacity: 1;
+
+            /* 自动布局 */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 4px 6px;
+            gap: 4px;
+
+            background: #67676b;
+
+            z-index: 0;
+
+            display: flex;
+            align-items: center;
+
+            span {
+              /* 自动布局子元素 */
+              opacity: 1;
+
+              font-family: DM Sans;
+              font-size: 10px;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 0em;
+
+              font-variation-settings: "opsz" auto;
+              font-feature-settings: "kern" on;
+              color: #ffffff;
+
+              z-index: 1;
+            }
+            .userinfo_top_right_btns_icon {
+              width: 12px;
+              height: 12px;
+            }
+          }
+        }
+      }
+      .userinfo_top_right_connect {
+        height: 36px;
+        border-radius: 10px;
+        opacity: 1;
+
+        background: #fc872b;
+
+        box-sizing: border-box;
+        border: 1px solid;
+
+        padding: 0 20px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .userinfo_data {
+      display: flex;
+      flex-direction: row;
+      gap: 10.5px;
+      li {
+        width: 98px;
+        height: 48px;
+        border-radius: 16px;
+        opacity: 1;
+
+        background: #212123;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        .userinfo_data_num {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 0;
+        }
+        .userinfo_data_des {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 10px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  .nftToken {
+    margin-top: 24px;
+    .nftToken_tab {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      li {
+        width: 76px;
+        height: 34px;
+
+        opacity: 1;
+
+        font-family: DM Sans;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: normal;
+        letter-spacing: 0em;
+
+        font-variation-settings: "opsz" auto;
+        font-feature-settings: "kern" on;
+        color: #4d4d4d;
+        text-align: center;
+        line-height: 34px;
+        &.nftToken_tab_active {
+          border-radius: 10px;
+          opacity: 1;
+
+          background: #fc872b;
+
+          color: #ffffff;
+        }
+      }
+    }
+
+    .nftToken_content {
+      margin-top: 10px;
+
+      width: 345px;
+      min-height: 236px;
+      border-radius: 16px;
+      opacity: 1;
+
+      background: #171719;
+      z-index: 1;
+      .nftToken_content_nft {
+        /* 自动布局 */
+        display: flex;
+        flex-direction: column;
+        padding: 14px 15px;
+        gap: 6px;
+
+        .nftToken_content_nft_top {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          > span {
+            &:nth-of-type(1) {
+              /* 自动布局子元素 */
+              opacity: 1;
+
+              font-family: DM Sans;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: normal;
+              letter-spacing: 0em;
+
+              font-variation-settings: "opsz" auto;
+              font-feature-settings: "kern" on;
+              color: #ffffff;
+
+              z-index: 0;
+            }
+
+            &:nth-of-type(2) {
+              /* 自动布局子元素 */
+              opacity: 1;
+
+              font-family: DM Sans;
+              font-size: 10px;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 0em;
+
+              font-variation-settings: "opsz" auto;
+              font-feature-settings: "kern" on;
+              color: #f3be3c;
+
+              z-index: 0;
+
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              gap: 4px;
+            }
+          }
+        }
+
+        .nftToken_content_nft_img {
+          width: 315px;
+          height: 160px;
+          border-radius: 10px;
+          opacity: 1;
+          object-fit: cover;
+        }
+
+        .nftToken_content_nft_des {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 2;
+        }
+      }
+
+      .nftToken_content_token {
+        display: flex;
+        flex-direction: column;
+        .nftToken_content_token_top {
+          padding: 14px 15px;
+          border-bottom: 1px solid #404040;
+          span {
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+          }
+        }
+
+        .nftToken_content_token_list {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+          padding: 19px 15px;
+          .nftToken_content_token_item {
+            display: flex;
+            flex-direction: row;
+            > img {
+              width: 30px;
+              height: 30px;
+              margin-right: 14px;
+            }
+            > div {
+              &:nth-of-type(1) {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                .nftToken_content_token_item_tokenName {
+                  /* 自动布局子元素 */
+                  opacity: 1;
+
+                  font-family: DM Sans;
+                  font-size: 16px;
+                  font-weight: bold;
+                  line-height: normal;
+                  letter-spacing: 0em;
+
+                  font-variation-settings: "opsz" auto;
+                  font-feature-settings: "kern" on;
+                  color: #ffffff;
+
+                  z-index: 0;
+                }
+
+                .nftToken_content_token_item_tokenNum {
+                  /* 自动布局子元素 */
+                  opacity: 1;
+
+                  font-family: DM Sans;
+                  font-size: 14px;
+                  font-weight: 500;
+                  line-height: normal;
+                  letter-spacing: 0em;
+
+                  font-variation-settings: "opsz" auto;
+                  font-feature-settings: "kern" on;
+                  color: #ffffff;
+
+                  z-index: 1;
+                }
+
+                .nftToken_content_token_item_AssetRecords {
+                  /* 自动布局子元素 */
+                  opacity: 1;
+
+                  font-family: DM Sans;
+                  font-size: 10px;
+                  font-weight: 500;
+                  line-height: normal;
+                  letter-spacing: 0em;
+
+                  font-variation-settings: "opsz" auto;
+                  font-feature-settings: "kern" on;
+                  color: #3680ff;
+
+                  z-index: 0;
+
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+
+                  > svg {
+                    width: 12px;
+                    height: 12px;
+                  }
+                }
+              }
+
+              &:nth-of-type(2) {
+                margin-left: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-end;
+                .nftToken_content_token_item_tokenWaiting {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  span {
+                    /* 自动布局子元素 */
+                    opacity: 1;
+
+                    font-family: DM Sans;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0em;
+
+                    font-variation-settings: "opsz" auto;
+                    font-feature-settings: "kern" on;
+                    color: #ffffff;
+
+                    z-index: 0;
+                  }
+                }
+
+                .nftToken_content_token_item_tokenReceive {
+                  /* 自动布局子元素 */
+                  width: 69px;
+                  height: 32px;
+                  border-radius: 6px;
+                  opacity: 1;
+
+                  /* 自动布局 */
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 8px 12px;
+                  gap: 4px;
+
+                  background: #000000;
+
+                  z-index: 1;
+                  box-sizing: border-box;
+
+                  > span {
+                    /* 自动布局子元素 */
+                    opacity: 1;
+
+                    font-family: DM Sans;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0em;
+
+                    font-variation-settings: "opsz" auto;
+                    font-feature-settings: "kern" on;
+                    color: #ffffff;
+
+                    z-index: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .nftToken_content_nft_mint {
+        width: 100%;
+        height: 236px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        .nftToken_content_nft_mint_btn {
+          /* 自动布局子元素 */
+          width: 169px;
+          height: 38px;
+          border-radius: 10px;
+          opacity: 1;
+
+          /* 自动布局 */
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 42px;
+          background: #fc872b;
+          z-index: 0;
+          gap: 10px;
+          box-sizing: border-box;
+          span {
+            /* 自动布局子元素 */
+            font-family: DM Sans;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: normal;
+            text-align: center;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+
+            z-index: 0;
+
+            white-space: nowrap;
+          }
+          .nftToken_content_nft_mint_btn_icon {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        > span {
+          /* 自动布局子元素 */
+          font-family: DM Sans;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: normal;
+          text-align: center;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 1;
+        }
+      }
+
+      .nftToken_content_userDisconnect {
+        width: 100%;
+        height: 236px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 43px;
+        box-sizing: border-box;
+        span {
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: normal;
+          text-align: center;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .invite {
+    margin-top: 25px;
+    .invite_top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      span {
+        &:nth-of-type(1) {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 0;
+        }
+
+        &:nth-of-type(2) {
+          /* 自动布局子元素 */
+
+          font-family: DM Sans;
+          font-size: 10px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #f3be3c;
+
+          z-index: 0;
+
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+      }
+    }
+
+    .invite_content {
+      width: 345px;
+      border-radius: 16px;
+      opacity: 1;
+
+      background: #171719;
+
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+
+      padding: 14px 15px;
+      box-sizing: border-box;
+
+      margin-top: 10px;
+      span {
+        &:nth-of-type(1) {
+          /* 自动布局子元素 */
+          opacity: 0.8;
+
+          font-family: DM Sans;
+          font-size: 10px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 0;
+        }
+
+        &:nth-of-type(2) {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #ffffff;
+
+          z-index: 0;
+
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          .invite_content_icon {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        &:nth-of-type(3) {
+          /* 自动布局子元素 */
+          opacity: 1;
+
+          font-family: DM Sans;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: normal;
+          letter-spacing: 0em;
+
+          font-variation-settings: "opsz" auto;
+          font-feature-settings: "kern" on;
+          color: #eaeaea;
+
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  .dataDisclosure {
+    margin-top: 24px;
+    > span {
+      /* 自动布局子元素 */
+      font-family: DM Sans;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: normal;
+      letter-spacing: 0em;
+
+      font-variation-settings: "opsz" auto;
+      font-feature-settings: "kern" on;
+      color: #ffffff;
+
+      z-index: 0;
+    }
+
+    .dataDisclosure_content {
+      width: 345px;
+      height: 103px;
+      border-radius: 16px;
+      opacity: 1;
+      padding: 14px 15px;
+      box-sizing: border-box;
+
+      background: #171719;
+
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      .dataDisclosure_content_item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span {
+          &:nth-of-type(1) {
+            /* 自动布局子元素 */
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+
+            z-index: 0;
+          }
+
+          &:nth-of-type(2) {
+            /* 自动布局子元素 */
+            opacity: 1;
+
+            font-family: DM Sans;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0em;
+
+            font-variation-settings: "opsz" auto;
+            font-feature-settings: "kern" on;
+            color: #ffffff;
+
+            z-index: 1;
+          }
+        }
+      }
+    }
   }
 }
