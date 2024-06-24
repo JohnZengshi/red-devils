@@ -13,13 +13,9 @@ import { BaseError, useAccount } from "wagmi";
 import { disconnect } from "wagmi/actions";
 import { config } from "@/components/WalletProvider";
 import { useNavigate } from "react-router-dom";
-import { Button, Dialog, Ellipsis, Empty, Toast } from "antd-mobile";
-import { loginOut, signAndLogin } from "@/utils/wallet";
-import {
-  api_claim_income,
-  api_get_homepage_user_data,
-  api_users_cancel_orders,
-} from "@/server/api";
+import { Button, Dialog, Empty, Toast } from "antd-mobile";
+import { loginOut } from "@/utils/wallet";
+import { api_claim_income, api_get_homepage_user_data } from "@/server/api";
 import { UserHomeData } from "@/server/module";
 import { UrlQueryParamsKey } from "@/constants";
 import { receiveByContract } from "@/contract/utils";
@@ -44,7 +40,7 @@ export default function () {
     [userData]
   );
   const receiveLoadingToast = useRef<ToastHandler>();
-  const { transcationStatus, startPollingCheckBuyStatus } =
+  const { transcationStatus, startPollingCheckBuyStatus,stopPollingCheckBuyStatus } =
     usePollingCheckBuyStatus("NORMAL");
 
   useEffect(() => {
@@ -55,6 +51,7 @@ export default function () {
   useEffect(() => {
     if (transcationStatus == "success") {
       receiveLoadingToast.current?.close();
+      stopPollingCheckBuyStatus()
       Dialog.alert({
         content: `${t("领取成功，前往钱包查看")}`,
         confirmText: "OK",
@@ -297,7 +294,12 @@ export default function () {
                         const buyAmount = BigInt(
                           orderInfo?.claimQuantity || ""
                         );
-                        receiveByContract(buyAmount, orderInfo?.orderNumber)
+                        receiveByContract(
+                          buyAmount,
+                          orderInfo.time,
+                          orderInfo?.orderNumber,
+                          orderInfo.hash
+                        )
                           .then((hash) => {
                             console.log("领取成功！hash:", hash);
                             getHomeData();

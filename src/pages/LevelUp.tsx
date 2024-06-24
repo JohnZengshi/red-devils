@@ -38,8 +38,11 @@ export default function () {
   const upgradeLoadingtoast = useRef<ToastHandler>();
   const orderInfo = useRef<UpgradeOrder>();
 
-  const { transcationStatus, startPollingCheckBuyStatus } =
-    usePollingCheckBuyStatus("NORMAL");
+  const {
+    transcationStatus,
+    startPollingCheckBuyStatus,
+    stopPollingCheckBuyStatus,
+  } = usePollingCheckBuyStatus("NORMAL");
   useEffect(() => {
     updateUserUpgrdeInfo();
     return () => {};
@@ -66,6 +69,7 @@ export default function () {
   useEffect(() => {
     if (transcationStatus == "success") {
       upgradeLoadingtoast.current?.close();
+      stopPollingCheckBuyStatus();
       Dialog.alert({
         content: `${t("升级成功，返回首页查看")}`,
         confirmText: "OK",

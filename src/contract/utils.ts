@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-06-24 11:09:12
+ * @LastEditTime: 2024-06-24 18:25:44
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -16,8 +16,6 @@ import { encodeFunctionData } from "viem/utils";
 import erc20Abi from "@/contract/abi/erc20abi.json";
 import usdtAbi from "@/contract/abi/USDT.json";
 import RedDevilsAbi from "@/contract/abi/RedDevils.json";
-import Toast from "antd-mobile/es/components/toast";
-import { EstimateGasErrorType, WriteContractErrorType } from "viem";
 import i18next from "i18next";
 import { BaseError } from "wagmi";
 
@@ -145,7 +143,11 @@ export const authorizedU = async (uNum: bigint) => {
  * @param orderID
  * @returns
  */
-export async function payByContract(amount: bigint, orderID: string) {
+export async function payByContract(
+  amount: bigint,
+  orderID: string,
+  payInduction: number
+) {
   console.log("pay buy contract params", { amount, orderID });
   console.log("NETWORK_USDT:", import.meta.env.VITE_NETWORK_USDT_ADDRESS);
 
@@ -164,13 +166,13 @@ export async function payByContract(amount: bigint, orderID: string) {
         await authorizedU(amount);
       }
 
-      console.log("参数:", amount, orderID);
+      console.log("参数:", amount, orderID, payInduction);
       estimateGas(config, {
         to: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
         data: encodeFunctionData({
           abi: RedDevilsAbi,
           functionName: "buyHMNFT",
-          args: [amount, orderID],
+          args: [amount, orderID, payInduction],
         }),
       })
         .then((gas) => {
@@ -180,7 +182,7 @@ export async function payByContract(amount: bigint, orderID: string) {
             abi: RedDevilsAbi,
             address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
             functionName: "buyHMNFT",
-            args: [amount, orderID],
+            args: [amount, orderID, payInduction],
             gas: gasPrice,
           })
             .then((receipt) => {
@@ -188,12 +190,12 @@ export async function payByContract(amount: bigint, orderID: string) {
               reslove(receipt);
             })
             .catch((err: BaseError) => {
-              console.log("buyHMNFT Transaction err", err.details);
+              console.log("buyHMNFT Transaction err", err);
               reject(err);
             });
         })
         .catch((err: BaseError) => {
-          console.log("buyHMNFT estimateGas err", err.details);
+          console.log("buyHMNFT estimateGas err", err);
           reject(err);
         });
     } catch (err) {
@@ -252,12 +254,12 @@ export async function upGradeByContract(amount: bigint, orderID: string) {
               reslove(receipt);
             })
             .catch((err: BaseError) => {
-              console.log("upgradePrivilege Transaction err", err.details);
+              console.log("upgradePrivilege Transaction err", err);
               reject(err);
             });
         })
         .catch((err: BaseError) => {
-          console.log("upgradePrivilege estimateGas err", err.details);
+          console.log("upgradePrivilege estimateGas err", err);
           reject(err);
         });
     } catch (err) {
@@ -272,9 +274,64 @@ export async function upGradeByContract(amount: bigint, orderID: string) {
  * @param orderID
  * @returns
  */
-export async function receiveByContract(amount: bigint, orderID: string) {
+export async function receiveByContract(
+  amount: bigint,
+  paymentTime: number,
+  orderID: string,
+  hashStr: string
+) {
   console.log("pay buy contract params", { amount, orderID });
   console.log("NETWORK_USDT:", import.meta.env.VITE_NETWORK_USDT_ADDRESS);
 
-  return new Promise<string>(async (reslove, reject) => {});
+  return new Promise<string>(async (reslove, reject) => {
+    try {
+      const balance = await getBalance();
+      if (balance < amount) {
+        console.log("用户代币余额不足");
+        reject(new BaseError(i18next.t("余额不足")));
+        return;
+      }
+
+      console.log("当前要授权的U:", amount);
+      let approvedU = await getApproveUsdt();
+      if (approvedU < amount) {
+        await authorizedU(amount);
+      }
+
+      console.log("参数:", amount, paymentTime, orderID, hashStr);
+      estimateGas(config, {
+        to: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
+        data: encodeFunctionData({
+          abi: RedDevilsAbi,
+          functionName: "reward",
+          args: [amount, paymentTime, orderID, hashStr],
+        }),
+      })
+        .then((gas) => {
+          const gasPrice = (gas * 12n) / 10n;
+          console.log("estimate gas:%d , my gas: %d", gas, gasPrice);
+          writeContract(config, {
+            abi: RedDevilsAbi,
+            address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
+            functionName: "reward",
+            args: [amount, paymentTime, orderID, hashStr],
+            gas: gasPrice,
+          })
+            .then((receipt) => {
+              console.log("write contract success!, receipt:", receipt);
+              reslove(receipt);
+            })
+            .catch((err: BaseError) => {
+              console.log("reward Transaction err", err);
+              reject(err);
+            });
+        })
+        .catch((err: BaseError) => {
+          console.log("reward estimateGas err", err);
+          reject(err);
+        });
+    } catch (err) {
+      reject(new BaseError(`${err}`));
+    }
+  });
 }

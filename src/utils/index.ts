@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 18:19:27
- * @LastEditTime: 2024-06-22 15:26:37
+ * @LastEditTime: 2024-06-24 14:49:16
  * @Author: John
  */
 import { type ClassValue, clsx } from "clsx";
@@ -14,7 +14,6 @@ export const ua = navigator.userAgent;
 export const isIOS = /iphone|ipad|ipod|ios/i.test(ua);
 export const isAndroid = /android|XiaoMi|MiuiBrowser/i.test(ua);
 export const isMobile = isIOS || isAndroid;
-export const isOKApp = /OKApp/i.test(ua);
 
 export function shortenString(
   inputString: string,

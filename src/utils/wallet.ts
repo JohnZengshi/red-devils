@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:55:07
- * @LastEditTime: 2024-06-20 16:30:22
+ * @LastEditTime: 2024-06-24 14:01:50
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -13,17 +13,11 @@ import {
 } from "@/server/api";
 import useUserStore from "@/store/User";
 import {
-  writeContract,
-  readContract,
-  estimateGas,
-  waitForTransactionReceipt,
-  getConnectorClient,
   signMessage,
   getChains,
   switchChain,
   getChainId,
   disconnect,
-  getAccount,
 } from "@wagmi/core";
 import Toast from "antd-mobile/es/components/toast";
 import i18next from "i18next";

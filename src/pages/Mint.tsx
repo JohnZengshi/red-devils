@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 15:28:03
- * @LastEditTime: 2024-06-24 11:08:14
+ * @LastEditTime: 2024-06-24 18:28:07
  * @Author: John
  */
 import { cn } from "@/utils";
@@ -41,7 +41,7 @@ export default function () {
 
   const buyLoadingToast = useRef<ToastHandler>();
   const approveLoadingToast = useRef<ToastHandler>();
-  const { buyNftIds, startPollingCheckBuyStatus } =
+  const { buyNftIds, startPollingCheckBuyStatus, stopPollingCheckBuyStatus } =
     usePollingCheckBuyStatus("NFT");
 
   const approvePrice = useMemo(
@@ -73,6 +73,7 @@ export default function () {
   useEffect(() => {
     if (buyNftIds) {
       buyLoadingToast.current?.close();
+      stopPollingCheckBuyStatus();
       Dialog.alert({
         content: `${t("MINT成功，返回首页查看")}`,
         confirmText: "OK",
@@ -176,7 +177,11 @@ export default function () {
             orderInfo.current = orderRes?.data;
             if (!orderInfo.current?.orderNumber) return;
             const buyAmount = BigInt(orderInfo.current?.buyAmount || "");
-            payByContract(buyAmount, orderInfo.current?.orderNumber)
+            payByContract(
+              buyAmount,
+              orderInfo.current?.orderNumber,
+              orderInfo.current.payInduction
+            )
               .then((hash) => {
                 console.log("购买成功！hash:", hash);
                 updateNftConfig();

@@ -102,6 +102,7 @@ export interface NftOrder {
   updateBy: string;
   updateTime: string;
   userId: number;
+  payInduction: number;
 }
 
 export interface PreprelionListItem {
@@ -133,5 +134,5 @@ export interface ClaimIncome {
   claimQuantity: string;
   hash: string;
   orderNumber: string;
-  time: string;
+  time: number;
 }
