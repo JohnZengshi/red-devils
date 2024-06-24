@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 18:01:43
- * @LastEditTime: 2024-06-17 18:16:57
+ * @LastEditTime: 2024-06-24 18:51:52
  * @Author: John
  */
 /*
@@ -39,9 +39,10 @@ const metadata = {
   icons: [`${import.meta.env.BASE_URL}/favicon.svg`],
 };
 
-let chains = import.meta.env.PROD
-  ? ([bsc] as const)
-  : ([bnbTestNetwork] as const);
+let chains =
+  import.meta.env.DEV || import.meta.env.MODE == "test"
+    ? ([bnbTestNetwork] as const)
+    : ([bsc] as const);
 
 export const config = defaultWagmiConfig({
   chains, // required
