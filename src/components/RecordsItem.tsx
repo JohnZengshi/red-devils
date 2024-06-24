@@ -8,7 +8,7 @@ import classes from "./RecordsItem.module.css";
 export default function RecordsItem({
   itemList,
 }: {
-  itemList: { title: string; value: string; valueColor?: string }[];
+  itemList: { title: string; value?: string; valueColor?: string }[];
 }) {
   return (
     <>

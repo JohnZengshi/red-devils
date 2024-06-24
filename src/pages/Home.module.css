@@ -235,7 +235,7 @@
       margin-top: 10px;
 
       width: 345px;
-      min-height: 236px;
+      /* min-height: 236px; */
       border-radius: 16px;
       opacity: 1;
 
@@ -326,6 +326,8 @@
         .nftToken_content_token_top {
           padding: 14px 15px;
           border-bottom: 1px solid #404040;
+          display: flex;
+          flex-direction: column;
           span {
             opacity: 1;
 
@@ -468,7 +470,7 @@
                   z-index: 1;
                   box-sizing: border-box;
 
-                  > span {
+                  span {
                     /* 自动布局子元素 */
                     opacity: 1;
 
@@ -499,6 +501,7 @@
         justify-content: center;
         align-items: center;
         gap: 16px;
+        padding: 0 43px;
         .nftToken_content_nft_mint_btn {
           /* 自动布局子元素 */
           width: 169px;
@@ -643,7 +646,7 @@
       box-sizing: border-box;
 
       margin-top: 10px;
-      span {
+      > span {
         &:nth-of-type(1) {
           /* 自动布局子元素 */
           opacity: 0.8;
@@ -673,21 +676,18 @@
 
           font-variation-settings: "opsz" auto;
           font-feature-settings: "kern" on;
-          color: #ffffff;
+          color: #eaeaea;
 
-          z-index: 0;
-
-          display: flex;
-          align-items: center;
-          gap: 16px;
-
-          .invite_content_icon {
-            width: 24px;
-            height: 24px;
-          }
+          z-index: 1;
         }
+      }
+      .invite_content_link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        &:nth-of-type(3) {
+        > span {
+          width: 265px;
           /* 自动布局子元素 */
           opacity: 1;
 
@@ -699,9 +699,20 @@
 
           font-variation-settings: "opsz" auto;
           font-feature-settings: "kern" on;
-          color: #eaeaea;
+          color: #ffffff;
 
-          z-index: 1;
+          z-index: 0;
+
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          white-space: nowrap;
+
+          .invite_content_icon {
+            width: 24px;
+            height: 24px;
+          }
         }
       }
     }

@@ -2,17 +2,29 @@ import classes from "./Home.module.css";
 import useUserStore from "@/store/User";
 import { cn, copyText, shortenString } from "@/utils";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo.svg";
 import nftBg from "@/assets/nft_bg.svg";
 import usdtBg from "@/assets/usdt_bg.svg";
+import RMOB_logo from "@/assets/RMOB_logo.svg";
 import IconFont from "@/components/iconfont";
-import { useAccount } from "wagmi";
+import { BaseError, useAccount } from "wagmi";
 import { disconnect } from "wagmi/actions";
 import { config } from "@/components/WalletProvider";
 import { useNavigate } from "react-router-dom";
-import { Toast } from "antd-mobile";
+import { Button, Dialog, Ellipsis, Empty, Toast } from "antd-mobile";
+import { loginOut, signAndLogin } from "@/utils/wallet";
+import {
+  api_claim_income,
+  api_get_homepage_user_data,
+  api_users_cancel_orders,
+} from "@/server/api";
+import { UserHomeData } from "@/server/module";
+import { UrlQueryParamsKey } from "@/constants";
+import { receiveByContract } from "@/contract/utils";
+import usePollingCheckBuyStatus from "@/hook/usePollingCheckBuyStatus";
+import { ToastHandler } from "antd-mobile/es/components/toast";
 
 export default function () {
   const { Token, UpdateToken } = useUserStore();
@@ -22,10 +34,40 @@ export default function () {
 
   const [tabIndex, setTabIndex] = useState(0);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState<UserHomeData>();
+
+  const userInviteLink = useMemo(
+    () =>
+      `${import.meta.env.VITE_BASE_URL}?${UrlQueryParamsKey.INVITE_CODE}=${
+        userData?.invitationCode || ""
+      }`,
+    [userData]
+  );
+  const receiveLoadingToast = useRef<ToastHandler>();
+  const { transcationStatus, startPollingCheckBuyStatus } =
+    usePollingCheckBuyStatus("NORMAL");
+
   useEffect(() => {
-    UpdateToken("user token abc");
+    getHomeData();
     return () => {};
-  }, []);
+  }, [Token]);
+
+  useEffect(() => {
+    if (transcationStatus == "success") {
+      receiveLoadingToast.current?.close();
+      Dialog.alert({
+        content: `${t("领取成功，前往钱包查看")}`,
+        confirmText: "OK",
+      });
+    }
+
+    return () => {};
+  }, [transcationStatus]);
+
+  async function getHomeData() {
+    const { data } = await api_get_homepage_user_data().send({});
+    setUserData(data?.data);
+  }
 
   useEffect(() => {
     console.log("user token:", Token);
@@ -47,6 +89,7 @@ export default function () {
                   <IconFont
                     onClick={() => {
                       disconnect(config);
+                      loginOut();
                     }}
                     name="tuichu"
                     className={classes.userinfo_top_right_wallet_disconnect}
@@ -54,26 +97,62 @@ export default function () {
                   />
                 </div>
                 <div className={classes.userinfo_top_right_btns}>
-                  <div className={classes.userinfo_top_right_btns_item}>
-                    <IconFont
-                      name="tongdun"
-                      className={classes.userinfo_top_right_btns_icon}
-                    />
-                    <span>{t("普通非活跃")}</span>
-                  </div>
-                  <div
-                    className={classes.userinfo_top_right_btns_item}
-                    onClick={() => {
-                      navigate("/levelup");
-                    }}
-                  >
-                    <span>{t("升级")}</span>
-                    <IconFont
-                      name="chevronsrightshuangyoujiantou"
-                      className={classes.userinfo_top_right_btns_icon}
-                      color={"#fff"}
-                    />
-                  </div>
+                  {userData && (
+                    <>
+                      <div className={classes.userinfo_top_right_btns_item}>
+                        {userData.level == 0 && (
+                          <>
+                            <IconFont
+                              name="tongdun"
+                              className={classes.userinfo_top_right_btns_icon}
+                            />
+                            <span>{t("普通非活跃")}</span>
+                          </>
+                        )}
+                        {userData.level == 1 && (
+                          <>
+                            <IconFont
+                              name="jindun"
+                              className={classes.userinfo_top_right_btns_icon}
+                            />
+                            <span>{t("普通活跃")}</span>
+                          </>
+                        )}
+                        {userData.level == 2 && (
+                          <>
+                            <IconFont
+                              name="xingdun"
+                              className={classes.userinfo_top_right_btns_icon}
+                            />
+                            <span>{t("社长")}</span>
+                          </>
+                        )}
+                        {userData.level == 3 && (
+                          <>
+                            <IconFont
+                              name="guanjun"
+                              className={classes.userinfo_top_right_btns_icon}
+                            />
+                            <span>{t("基金会社长")}</span>
+                          </>
+                        )}
+                      </div>
+
+                      <div
+                        className={classes.userinfo_top_right_btns_item}
+                        onClick={() => {
+                          navigate("/levelup");
+                        }}
+                      >
+                        <span>{t("升级")}</span>
+                        <IconFont
+                          name="chevronsrightshuangyoujiantou"
+                          className={classes.userinfo_top_right_btns_icon}
+                          color={"#fff"}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             ) : (
@@ -91,15 +170,21 @@ export default function () {
           </div>
           <ul className={classes.userinfo_data}>
             <li>
-              <span className={classes.userinfo_data_num}>20</span>
+              <span className={classes.userinfo_data_num}>
+                {userData?.mintNumber || 0}
+              </span>
               <span className={classes.userinfo_data_des}>{t("邀请铸造")}</span>
             </li>
             <li>
-              <span className={classes.userinfo_data_num}>20</span>
+              <span className={classes.userinfo_data_num}>
+                {userData?.presidentNumber || 0}
+              </span>
               <span className={classes.userinfo_data_des}>{t("团队社长")}</span>
             </li>
             <li>
-              <span className={classes.userinfo_data_num}>3</span>
+              <span className={classes.userinfo_data_num}>
+                {userData?.airdropNumber || 0}
+              </span>
               <span className={classes.userinfo_data_des}>{t("邀请空投")}</span>
             </li>
           </ul>
@@ -126,10 +211,10 @@ export default function () {
               <>
                 {address ? (
                   <>
-                    {true ? (
+                    {userData?.nftId ? (
                       <div className={classes.nftToken_content_nft}>
                         <div className={classes.nftToken_content_nft_top}>
-                          <span># 737389</span>
+                          <span># ${userData?.nftId}</span>
                           <span
                             onClick={() => {
                               navigate("/mint");
@@ -188,22 +273,49 @@ export default function () {
                 </div>
 
                 <ul className={classes.nftToken_content_token_list}>
-                  <ReceiveCom
-                    tokenName="USDT"
-                    tokenNum={0}
-                    toReceive={0}
-                    onAssetRec={() => {
-                      navigate("/assetrecord");
-                    }}
-                  />
-                  <ReceiveCom
-                    tokenName="RMOB"
-                    tokenNum={0}
-                    toReceive={0}
-                    onAssetRec={() => {
-                      navigate("/airdroprecord");
-                    }}
-                  />
+                  {userData?.userIncomes.map((v, i) => (
+                    <ReceiveCom
+                      key={i}
+                      tokenName={v.coinName}
+                      tokenNum={v.receive}
+                      toReceive={v.collection}
+                      onAssetRec={() => {
+                        navigate(`/assetrecord?id=${v.id}&name=${v.coinName}`);
+                      }}
+                      onReceive={async () => {
+                        receiveLoadingToast.current = Toast.show({
+                          icon: "loading",
+                          duration: 0,
+                          content: t("领取中"),
+                          maskClickable: false,
+                        });
+                        const { data } = await api_claim_income().send({
+                          queryParams: { id: v.id },
+                        });
+                        const orderInfo = data?.data;
+                        if (!orderInfo?.orderNumber) return;
+                        const buyAmount = BigInt(
+                          orderInfo?.claimQuantity || ""
+                        );
+                        receiveByContract(buyAmount, orderInfo?.orderNumber)
+                          .then((hash) => {
+                            console.log("领取成功！hash:", hash);
+                            getHomeData();
+                            startPollingCheckBuyStatus(hash);
+                          })
+                          .catch(async (err: BaseError) => {
+                            receiveLoadingToast.current?.close();
+                            Toast.show({
+                              content: err.shortMessage,
+                              icon: "fail",
+                            });
+                          });
+                      }}
+                    />
+                  ))}
+
+                  {(userData?.userIncomes.length == 0 ||
+                    !userData?.userIncomes) && <Empty />}
                 </ul>
               </div>
             )}
@@ -213,32 +325,50 @@ export default function () {
         <div className={classes.invite}>
           <div className={classes.invite_top}>
             <span>{t("邀请")}</span>
-            <span
-              onClick={() => {
-                navigate("/invitationlist");
-              }}
-            >
-              {t("邀请列表")}{" "}
-              <IconFont
-                name="chevronsrightshuangyoujiantou"
-                color={"#F3BE3C"}
-              />
-            </span>
+            {address && (
+              <span
+                onClick={() => {
+                  navigate("/invitationlist");
+                }}
+              >
+                {t("邀请列表")}{" "}
+                <IconFont
+                  name="chevronsrightshuangyoujiantou"
+                  color={"#F3BE3C"}
+                />
+              </span>
+            )}
           </div>
 
           <div className={classes.invite_content}>
             <span>{t("邀请链接")}</span>
-            <span>
-              https://www.rmob_nft.com/regster=id?1{" "}
-              <IconFont
-                onClick={() => {
-                  copyText("https://www.rmob_nft.com/regster=id?1");
-                }}
-                className={classes.invite_content_icon}
-                name="fuzhi"
-                color={"#fff"}
-              />{" "}
-            </span>
+            <div className={classes.invite_content_link}>
+              {address ? (
+                <>
+                  {userData?.nftId ? (
+                    <>
+                      <span>{shortenString(userInviteLink, 15, 15)}</span>
+                      <IconFont
+                        onClick={() => {
+                          copyText(userInviteLink);
+                        }}
+                        className={classes.invite_content_icon}
+                        name="fuzhi"
+                        color={"#fff"}
+                      />{" "}
+                    </>
+                  ) : (
+                    <>
+                      <span>{t("MINT Nft 获取邀请链接")}</span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <span>{t("链接钱包获取邀请链接")}</span>
+                </>
+              )}
+            </div>
 
             <span>
               {t(
@@ -253,15 +383,15 @@ export default function () {
           <ul className={classes.dataDisclosure_content}>
             <li className={classes.dataDisclosure_content_item}>
               <span>{t("资金池")}</span>
-              <span>10000</span>
+              <span>{userData?.pools || 0}</span>
             </li>
             <li className={classes.dataDisclosure_content_item}>
               <span>{t("社长席位")}</span>
-              <span>499</span>
+              <span>{userData?.president || 0}</span>
             </li>
             <li className={classes.dataDisclosure_content_item}>
               <span>{t("基金会社长席位")}</span>
-              <span>19</span>
+              <span>{userData?.foundation || 0}</span>
             </li>
           </ul>
         </div>
@@ -275,16 +405,19 @@ function ReceiveCom({
   tokenNum,
   toReceive,
   onAssetRec,
+  onReceive,
 }: {
   tokenName: string;
-  tokenNum: number;
+  tokenNum: string;
   toReceive: number;
   onAssetRec: () => void;
+  onReceive: () => void;
 }) {
   const { t } = useTranslation();
   return (
     <li className={classes.nftToken_content_token_item}>
-      <img src={usdtBg} alt="" />
+      {tokenName.toUpperCase() == "USDT" && <img src={usdtBg} alt="" />}
+      {tokenName.toUpperCase() == "RMOB" && <img src={RMOB_logo} alt="" />}
       <div>
         <span className={classes.nftToken_content_token_item_tokenName}>
           {tokenName}
@@ -308,17 +441,14 @@ function ReceiveCom({
           <span>{t("待领取")}</span>
           <span>{toReceive}</span>
         </div>
-        <div
+        <Button
           className={classes.nftToken_content_token_item_tokenReceive}
-          onClick={() => {
-            Toast.show({
-              content: t("领取成功，前往钱包查看"),
-              icon: "success",
-            });
-          }}
+          onClick={() => onReceive()}
+          fill="outline"
+          disabled={toReceive == 0}
         >
           <span>{t("领取")}</span>
-        </div>
+        </Button>
       </div>
     </li>
   );

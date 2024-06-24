@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 17:20:03
- * @LastEditTime: 2024-06-19 17:41:43
+ * @LastEditTime: 2024-06-24 10:08:56
  * @Author: John
  */
 import { defineConfig } from "vite";
@@ -14,6 +14,13 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 export default defineConfig({
   server: {
     host: "192.168.10.167",
+    proxy: {
+      "/dev": {
+        target: "http://192.168.10.106:8100",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev/, ""),
+      },
+    },
   },
   plugins: [
     react(),

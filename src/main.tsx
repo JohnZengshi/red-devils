@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 17:20:03
- * @LastEditTime: 2024-06-19 18:07:46
+ * @LastEditTime: 2024-06-20 11:43:14
  * @Author: John
  */
 import "@/i18n/init.ts";
@@ -15,8 +15,9 @@ import EventBusProvider from "./context/EventBusContext.tsx";
 import { WalletProvider } from "./components/WalletProvider.tsx";
 import flexible from "./utils/flexible.ts";
 import VConsole from "vconsole";
+import { getUrlQueryParam } from "./utils/index.ts";
 
-if (import.meta.env.DEV) {
+if (getUrlQueryParam("vconsole") === "1") {
   new VConsole();
 }
 flexible(window, document);
