@@ -84,6 +84,7 @@ export default function () {
 
   async function updateUserUpgrdeInfo() {
     const { data } = await api_get_user_upgrade_information().send({});
+    // setUserUpgradeInfo({ ...data!.data, ...{ status: 1 } });
     setUserUpgradeInfo(data?.data);
   }
 
@@ -163,7 +164,7 @@ export default function () {
               upgradeLoadingtoast.current = Toast.show({
                 icon: "loading",
                 duration: 0,
-                content: t("购买中"),
+                content: t("升级中"),
                 maskClickable: false,
               });
               const { data: orderRes } = await api_upgrade().send({});
@@ -172,7 +173,7 @@ export default function () {
               const buyAmount = BigInt(orderInfo.current?.buyAmount || "");
               upGradeByContract(buyAmount, orderInfo.current?.orderNumber)
                 .then((hash) => {
-                  console.log("购买成功！hash:", hash);
+                  console.log("升级成功！hash:", hash);
                   updateUserUpgrdeInfo();
                   startPollingCheckBuyStatus(hash);
                 })

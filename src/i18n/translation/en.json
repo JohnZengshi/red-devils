@@ -101,5 +101,6 @@
   "正在获取已授权金额": "Currently retrieving authorized amount.",
   "升级成功，返回首页查看": "Upgrade successful, return to homepage to view.",
   "无级别提升": "Promotion without rank",
-  "没有更多数据了": "No more data"
+  "没有更多数据了": "No more data",
+  "升级中": "Upgrading"
 }
