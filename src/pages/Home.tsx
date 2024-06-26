@@ -10,9 +10,8 @@ import usdtBg from "@/assets/usdt_bg.svg";
 import RMOB_logo from "@/assets/RMOB_logo.svg";
 import IconFont from "@/components/iconfont";
 import { BaseError, useAccount } from "wagmi";
-import { disconnect } from "wagmi/actions";
 import { config } from "@/components/WalletProvider";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { Button, Dialog, Empty, Toast } from "antd-mobile";
 import { loginOut } from "@/utils/wallet";
 import { api_claim_income, api_get_homepage_user_data } from "@/server/api";
@@ -21,7 +20,7 @@ import { UrlQueryParamsKey } from "@/constants";
 import { receiveByContract } from "@/contract/utils";
 import usePollingCheckBuyStatus from "@/hook/usePollingCheckBuyStatus";
 import { ToastHandler } from "antd-mobile/es/components/toast";
-
+import { disconnect, getAccount } from "@wagmi/core";
 export default function () {
   const { Token, UpdateToken } = useUserStore();
   const { open } = useWeb3Modal();
@@ -34,14 +33,17 @@ export default function () {
 
   const userInviteLink = useMemo(
     () =>
-      `${import.meta.env.VITE_BASE_URL}?${UrlQueryParamsKey.INVITE_CODE}=${
+      `${import.meta.env.VITE_BASE_URL}#/?${UrlQueryParamsKey.INVITE_CODE}=${
         userData?.invitationCode || ""
       }`,
     [userData]
   );
   const receiveLoadingToast = useRef<ToastHandler>();
-  const { transcationStatus, startPollingCheckBuyStatus,stopPollingCheckBuyStatus } =
-    usePollingCheckBuyStatus("NORMAL");
+  const {
+    transcationStatus,
+    startPollingCheckBuyStatus,
+    stopPollingCheckBuyStatus,
+  } = usePollingCheckBuyStatus("NORMAL");
 
   useEffect(() => {
     getHomeData();
@@ -51,7 +53,7 @@ export default function () {
   useEffect(() => {
     if (transcationStatus == "success") {
       receiveLoadingToast.current?.close();
-      stopPollingCheckBuyStatus()
+      stopPollingCheckBuyStatus();
       Dialog.alert({
         content: `${t("领取成功，前往钱包查看")}`,
         confirmText: "OK",
@@ -84,8 +86,9 @@ export default function () {
                 <div className={classes.userinfo_top_right_wallet}>
                   <span>{shortenString(address, 6, 4)}</span>
                   <IconFont
-                    onClick={() => {
-                      disconnect(config);
+                    onClick={async () => {
+                      const { connector } = getAccount(config);
+                      await disconnect(config, { connector });
                       loginOut();
                     }}
                     name="tuichu"
@@ -103,7 +106,7 @@ export default function () {
                               name="tongdun"
                               className={classes.userinfo_top_right_btns_icon}
                             />
-                            <span>{t("普通非活跃")}</span>
+                            <span>{t("无等级")}</span>
                           </>
                         )}
                         {userData.level == 1 && (
@@ -112,7 +115,12 @@ export default function () {
                               name="jindun"
                               className={classes.userinfo_top_right_btns_icon}
                             />
-                            <span>{t("普通活跃")}</span>
+                            {userData.active === 0 && (
+                              <span>{t("普通非活跃")}</span>
+                            )}
+                            {userData.active === 1 && (
+                              <span>{t("普通活跃")}</span>
+                            )}
                           </>
                         )}
                         {userData.level == 2 && (
@@ -199,7 +207,7 @@ export default function () {
               className={tabIndex == 1 ? classes.nftToken_tab_active : ""}
               onClick={() => setTabIndex(1)}
             >
-              {t("代币")}
+              {t("收益")}
             </li>
           </ul>
 
@@ -211,7 +219,7 @@ export default function () {
                     {userData?.nftId ? (
                       <div className={classes.nftToken_content_nft}>
                         <div className={classes.nftToken_content_nft_top}>
-                          <span># ${userData?.nftId}</span>
+                          <span># {userData?.nftId}</span>
                           <span
                             onClick={() => {
                               navigate("/mint");
@@ -266,7 +274,7 @@ export default function () {
             {tabIndex == 1 && (
               <div className={classes.nftToken_content_token}>
                 <div className={classes.nftToken_content_token_top}>
-                  <span>{t("资产金额 = 已领取 + 待处理")}</span>
+                  <span>{t("总收益= 已领取 + 待领取")}</span>
                 </div>
 
                 <ul className={classes.nftToken_content_token_list}>
@@ -410,7 +418,7 @@ function ReceiveCom({
   onReceive,
 }: {
   tokenName: string;
-  tokenNum: string;
+  tokenNum: number;
   toReceive: number;
   onAssetRec: () => void;
   onReceive: () => void;
@@ -433,7 +441,7 @@ function ReceiveCom({
             onAssetRec();
           }}
         >
-          {t("资产记录")}{" "}
+          {t("收益记录")}{" "}
           <IconFont name="chevronsrightshuangyoujiantou" color={"#3680FF"} />
         </span>
       </div>
@@ -441,7 +449,7 @@ function ReceiveCom({
       <div>
         <div className={classes.nftToken_content_token_item_tokenWaiting}>
           <span>{t("待领取")}</span>
-          <span>{toReceive}</span>
+          <span>{tokenNum + toReceive}</span>
         </div>
         <Button
           className={classes.nftToken_content_token_item_tokenReceive}

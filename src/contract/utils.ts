@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-06-24 18:25:44
+ * @LastEditTime: 2024-06-25 15:28:36
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -285,19 +285,6 @@ export async function receiveByContract(
 
   return new Promise<string>(async (reslove, reject) => {
     try {
-      const balance = await getBalance();
-      if (balance < amount) {
-        console.log("用户代币余额不足");
-        reject(new BaseError(i18next.t("余额不足")));
-        return;
-      }
-
-      console.log("当前要授权的U:", amount);
-      let approvedU = await getApproveUsdt();
-      if (approvedU < amount) {
-        await authorizedU(amount);
-      }
-
       console.log("参数:", amount, paymentTime, orderID, hashStr);
       estimateGas(config, {
         to: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,

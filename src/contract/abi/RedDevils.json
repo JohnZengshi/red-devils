@@ -73,6 +73,12 @@
         "internalType": "uint256",
         "name": "orderId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "paymentType",
+        "type": "uint256"
       }
     ],
     "name": "BuySuccess",
@@ -366,25 +372,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "source",
-        "type": "string"
-      }
-    ],
-    "name": "stringToBytes32",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "result",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "tokenIndex",
     "outputs": [
@@ -452,6 +439,13 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

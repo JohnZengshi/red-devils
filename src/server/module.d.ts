@@ -19,6 +19,7 @@ export interface UserHomeData {
   presidentNumber: number;
   userImg: string;
   userIncomes: UserIncome[];
+  active: 0 | 1; // "0=非活跃  1=活跃用户"
 }
 export interface UserIncome {
   coinId: number;
@@ -27,7 +28,7 @@ export interface UserIncome {
   createTime: string;
   flag: number;
   id: number;
-  receive: string;
+  receive: number;
   updateTime: string;
   userId: number;
 }
@@ -107,7 +108,7 @@ export interface NftOrder {
 
 export interface PreprelionListItem {
   address: string;
-  level: number;
+  level: 0 | 1 | 2 | 3; // 0=无等级 1=会员 2=社长 3=基金会
   mintNumber: number;
   userType: number;
 }

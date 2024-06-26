@@ -1,14 +1,16 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:55:07
- * @LastEditTime: 2024-06-24 14:01:50
+ * @LastEditTime: 2024-06-25 14:47:58
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
 import {
+  api_binding_invitation_relationship,
   api_check_account_registration,
   api_get_wallet_signature_string,
   api_login,
+  api_query_whether_the_user_is_binding_relationship,
   api_signUp,
 } from "@/server/api";
 import useUserStore from "@/store/User";
@@ -18,9 +20,12 @@ import {
   switchChain,
   getChainId,
   disconnect,
+  getAccount,
 } from "@wagmi/core";
 import Toast from "antd-mobile/es/components/toast";
 import i18next from "i18next";
+import { getUrlQueryParam } from ".";
+import { UrlQueryParamsKey } from "@/constants";
 
 /**
  * @description: 检测网络并切换
@@ -101,7 +106,8 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
         });
       } catch (error) {
         // 用户拒绝签名或者遇到错误，断开链接
-        disconnect(config);
+        const { connector } = getAccount(config);
+        await disconnect(config, { connector });
         loadingToast.close();
         loginOut();
         throw new Error("用户拒绝签名或者遇到错误，断开链接");
@@ -123,7 +129,21 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
         });
 
         // TODO 判断用户是否绑定关系✔
-        // await checkUserBind(false);
+        const { data } =
+          await api_query_whether_the_user_is_binding_relationship().send({});
+        if (
+          typeof data?.data.result == "boolean" &&
+          data?.data.result === false
+        ) {
+          const inviteCode = getUrlQueryParam(UrlQueryParamsKey.INVITE_CODE);
+          if (inviteCode) {
+            const { data } = await api_binding_invitation_relationship().send({
+              data: {
+                shareCode: inviteCode,
+              },
+            });
+          }
+        }
         reslove();
         loadingToast.close();
       }

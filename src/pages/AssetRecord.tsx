@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 17:57:13
- * @LastEditTime: 2024-06-24 10:44:10
+ * @LastEditTime: 2024-06-25 16:17:20
  * @Author: John
  */
 import Tabs from "antd-mobile/es/components/tabs";
@@ -20,7 +20,7 @@ export default function () {
   const { t } = useTranslation();
   const coinId = useMemo(() => getUrlQueryParam("id"), []);
   const coinName = useMemo(() => getUrlQueryParam("name"), []);
-  const currentType = useRef<1 | 2>(1);
+  const currentType = useRef<1 | 2>(2);
   const [issueRecords, setIssueRecords] = useState<IncomeRecord["records"]>([]);
   const [receiveRecord, setReceiveRecord] = useState<IncomeRecord["records"]>(
     []
@@ -31,7 +31,7 @@ export default function () {
   const hasMore = useRef<boolean>(true);
   useEffect(() => {
     return () => {};
-  }, [coinId]);
+  }, []);
 
   async function getRecord() {
     return new Promise<void>(async (reslove) => {
@@ -47,7 +47,7 @@ export default function () {
           type: currentType.current,
           pageNum: pageNum.current,
           pageSize,
-          ...(conditions.current && currentType.current == 1
+          ...(conditions.current && currentType.current == 2
             ? { status: conditions.current }
             : {}),
         },
@@ -57,7 +57,7 @@ export default function () {
 
       if (data.data.records.length < pageSize) hasMore.current = false;
 
-      if (currentType.current == 1) {
+      if (currentType.current == 2) {
         setIssueRecords([...issueRecords, ...data?.data.records]);
       } else {
         setReceiveRecord([...receiveRecord, ...data?.data.records]);
@@ -67,9 +67,9 @@ export default function () {
   }
 
   function resetPaging() {
-    if (currentType.current == 1) {
+    if (currentType.current == 2) {
       setIssueRecords([]);
-    } else if (currentType.current == 2) {
+    } else if (currentType.current == 1) {
       setReceiveRecord([]);
     }
     pageNum.current = 0;
@@ -82,10 +82,10 @@ export default function () {
         className={cn(classes.AssetRecord)}
         onChange={(key) => {
           if (parseInt(key) == 1) {
-            currentType.current = 1;
+            currentType.current = 2;
             resetPaging();
           } else {
-            currentType.current = 2;
+            currentType.current = 1;
             resetPaging();
           }
         }}

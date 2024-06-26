@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 10:28:21
- * @LastEditTime: 2024-06-22 11:43:04
+ * @LastEditTime: 2024-06-25 14:47:34
  * @Author: John
  */
 import { GET, POST } from "./client";
@@ -129,5 +129,19 @@ export function api_upgrade() {
 export function api_claim_income() {
   return POST<any, ClaimIncome, { id: number }>({
     url: "/api/common/claimYourEarnings",
+  });
+}
+
+// 绑定邀请关系
+export function api_binding_invitation_relationship() {
+  return POST<{ shareCode: string }, { result: boolean }>({
+    url: "/api/account/bindingRelationship",
+  });
+}
+
+// 查询用户是否绑定关系
+export function api_query_whether_the_user_is_binding_relationship() {
+  return GET<any, { result: boolean }>({
+    url: "/api/account/bindOrNot",
   });
 }

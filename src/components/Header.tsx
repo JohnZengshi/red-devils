@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 15:16:31
- * @LastEditTime: 2024-06-19 18:30:52
+ * @LastEditTime: 2024-06-26 14:49:22
  * @Author: John
  */
 import Picker, {
@@ -42,7 +42,7 @@ export default function () {
       case "/levelup":
         return t("级别提升");
       case "/assetrecord":
-        return t("资产记录");
+        return t("收益记录");
       case "/airdroprecord":
         return t("RMOB记录");
       case "/invitationlist":
@@ -118,48 +118,6 @@ export default function () {
           </div>
         )}
       </div>
-      {/* 
-      <Picker
-        // title={t("选择语言")}
-        columns={langColums}
-        visible={langPickVisble}
-        onClose={() => {
-          setLangPickVisble(false);
-        }}
-        value={langPickValue}
-        onConfirm={(v) => {
-          setLangPickValue(v);
-          // console.log("Current lang:", v[0]);
-          switch (v[0]) {
-            case Lang.en:
-              i18n.changeLanguage(Lang.en);
-              UpdateLang(Lang.en);
-              break;
-            case Lang.cn:
-              i18n.changeLanguage(Lang.cn);
-              UpdateLang(Lang.cn);
-              break;
-            case Lang.tw:
-              i18n.changeLanguage(Lang.tw);
-              UpdateLang(Lang.tw);
-              break;
-            case Lang.jp:
-              i18n.changeLanguage(Lang.jp);
-              UpdateLang(Lang.jp);
-              break;
-            case Lang.de:
-              i18n.changeLanguage(Lang.de);
-              UpdateLang(Lang.de);
-              break;
-            default:
-              break;
-          }
-
-          // console.log("i18n lang:", i18n.language);
-        }}
-        confirmText={t("确定")}
-        cancelText={t("取消")}
-      /> */}
     </>
   );
 }

@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-17 18:19:27
- * @LastEditTime: 2024-06-24 14:49:16
+ * @LastEditTime: 2024-06-25 15:29:51
  * @Author: John
  */
 import { type ClassValue, clsx } from "clsx";
@@ -31,7 +31,7 @@ export function shortenString(
 }
 
 // 定义一个函数，用于获取指定参数的值
-export function getUrlQueryParam(key: string): string | undefined {
+export function getUrlQueryParam(key: string) {
   console.log(window.location);
   const query: Map<string, string> = new Map();
   const queryStr = window.location.href.split("?")[1];

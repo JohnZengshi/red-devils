@@ -1,11 +1,12 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 11:03:01
- * @LastEditTime: 2024-06-22 10:27:19
+ * @LastEditTime: 2024-06-25 18:17:18
  * @Author: John
  */
 import { api_preprelion_list } from "@/server/api";
 import { PreprelionListItem } from "@/server/module";
+import { getLevelName } from "@/utils";
 import { Empty } from "antd-mobile";
 import { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
@@ -22,8 +23,10 @@ export default function () {
     },
     {
       name: t("级别"),
-      selector: (row) => row.level,
       grow: 4,
+      cell(row, rowIndex, column, id) {
+        return <div>{getLevelName(row.level)}</div>;
+      },
     },
     {
       name: t("直推NFT"),

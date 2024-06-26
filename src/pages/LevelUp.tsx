@@ -190,7 +190,7 @@ export default function () {
             <Space>
               {userUpgradeInfo?.status == 1 ? (
                 <>
-                  {approveUsdt > 0n && <span>MINT</span>}
+                  {approveUsdt > 0n && <span>{t("升级")}</span>}
                   {approveUsdt === 0n && <span>{t("授权USDT")}</span>}
                 </>
               ) : (

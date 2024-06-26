@@ -3,7 +3,7 @@
   "红魔NFT": "Der Rote Teufel NFT",
   "铸造 NFT": "NFT Prägen",
   "级别提升": "Stufenaufstieg",
-  "资产记录": "Vermögensaufzeichnung",
+  "收益记录": "Ergebnisrekord",
   "RMOB记录": "RMOB Aufzeichnung",
   "直推列表": "Direktempfehlungsliste",
   "返回": "Zurück",
@@ -16,10 +16,10 @@
   "邀请铸造": "Prägen einladen",
   "团队社长": "Teamleiter",
   "邀请空投": "Airdrop einladen",
-  "代币": "Token",
+  "收益": "Einkommen",
   "Min结束后按照规则进行空投。": "Airdrop nach dem Ende des Min gemäß den Regeln.",
   "铸造 NFT 获得代币空投": "Token-Airdrop durch NFT-Prägung erhalten",
-  "资产金额 = 已领取 + 待处理": "Vermögenswert = Empfang + Ausstehend",
+  "总收益= 已领取 + 待领取": "Gesamtumsatz = Empfang + Abzuholen",
   "邀请": "Einladen",
   "邀请链接": "Einladungslink",
   "普通会员每邀请铸造一个NFT可获得一份空投福利；推荐铸造20个NFT的可升级为会长；团队中拥有20位会长可升级为基金会社长；邀请越多级别越高福利越多。": "Normale Mitglieder erhalten für jede Einladung zur Prägung eines NFTs einen Airdrop-Bonus; 20 empfohlene Prägungen führen zum Aufstieg zum Vorsitzenden; 20 Vorsitzende im Team ermöglichen den Aufstieg zum Fundmanager; je mehr Einladungen, desto höher das Level und die Belohnungen.",
@@ -102,5 +102,6 @@
   "升级成功，返回首页查看": "Upgrade erfolgreich abgeschlossen, zurück zur Startseite zur Ansicht.",
   "无级别提升": "Beförderung ohne Rang",
   "没有更多数据了": "Keine weiteren Daten",
-  "升级中": "Wird aktualisiert"
+  "升级中": "Wird aktualisiert",
+  "无等级": "Keine Bewertung"
 }
