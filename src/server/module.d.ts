@@ -43,6 +43,7 @@ export interface UserUpgradeInformation {
   proportion: string;
   status: 1 | 0; //1=可升级 0=不可升级
   upgradeFees: string;
+  active: 0 | 1; // "0=非活跃  1=活跃用户"
 }
 
 export interface NftConfigurationData {
@@ -110,7 +111,7 @@ export interface PreprelionListItem {
   address: string;
   level: 0 | 1 | 2 | 3; // 0=无等级 1=会员 2=社长 3=基金会
   mintNumber: number;
-  userType: number;
+  userType: 0 | 1; //  0=非活跃 1=活跃用户
 }
 
 export interface UpgradeOrder {

@@ -33,7 +33,7 @@ export default function () {
 
   const userInviteLink = useMemo(
     () =>
-      `${import.meta.env.VITE_BASE_URL}#/?${UrlQueryParamsKey.INVITE_CODE}=${
+      `${location.origin}/#/?${UrlQueryParamsKey.INVITE_CODE}=${
         userData?.invitationCode || ""
       }`,
     [userData]
@@ -87,8 +87,6 @@ export default function () {
                   <span>{shortenString(address, 6, 4)}</span>
                   <IconFont
                     onClick={async () => {
-                      const { connector } = getAccount(config);
-                      await disconnect(config, { connector });
                       loginOut();
                     }}
                     name="tuichu"
@@ -433,7 +431,7 @@ function ReceiveCom({
           {tokenName}
         </span>
         <span className={classes.nftToken_content_token_item_tokenNum}>
-          {tokenNum}
+          {tokenNum + toReceive}
         </span>
         <span
           className={classes.nftToken_content_token_item_AssetRecords}
@@ -449,7 +447,7 @@ function ReceiveCom({
       <div>
         <div className={classes.nftToken_content_token_item_tokenWaiting}>
           <span>{t("待领取")}</span>
-          <span>{tokenNum + toReceive}</span>
+          <span>{toReceive}</span>
         </div>
         <Button
           className={classes.nftToken_content_token_item_tokenReceive}

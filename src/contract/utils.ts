@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-06-25 15:28:36
+ * @LastEditTime: 2024-06-27 18:00:07
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -200,7 +200,8 @@ export async function payByContract(
         });
     } catch (err) {
       console.log("pay By Contract catch err", err);
-      reject(new BaseError(`${err}`));
+      if (typeof err == "string") return reject(new BaseError(`${err}`));
+      return reject(err);
     }
   });
 }

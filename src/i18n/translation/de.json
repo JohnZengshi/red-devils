@@ -1,6 +1,6 @@
 {
   "AppName": "Der Rote Teufel",
-  "红魔NFT": "Der Rote Teufel NFT",
+  "红魔股权NFT": "Red Devils Equity NFT",
   "铸造 NFT": "NFT Prägen",
   "级别提升": "Stufenaufstieg",
   "收益记录": "Ergebnisrekord",
@@ -103,5 +103,6 @@
   "无级别提升": "Beförderung ohne Rang",
   "没有更多数据了": "Keine weiteren Daten",
   "升级中": "Wird aktualisiert",
-  "无等级": "Keine Bewertung"
+  "无等级": "Keine Bewertung",
+  "无效的邀请链接": "Ungültiger Einladungslink"
 }

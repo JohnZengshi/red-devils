@@ -256,3 +256,41 @@
     }
   }
 }
+
+.adm-dialog {
+  .adm-center-popup-body {
+    box-sizing: border-box !important;
+    border: 1px solid #fc872b !important;
+    border-radius: 10px !important;
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+    .adm-dialog-content {
+      .adm-auto-center-content {
+        opacity: 1;
+
+        font-family: Space Grotesk;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 0px;
+
+        font-variation-settings: "opsz" auto;
+        color: #ffffff;
+
+        z-index: 0;
+      }
+    }
+
+    .adm-dialog-footer {
+      .adm-dialog-action-row {
+        border-top: 1px solid #fc872b !important;
+
+        .adm-dialog-button {
+          span {
+            color: #fc872b;
+          }
+        }
+      }
+    }
+  }
+}

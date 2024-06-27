@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 11:03:01
- * @LastEditTime: 2024-06-25 18:17:18
+ * @LastEditTime: 2024-06-26 15:21:27
  * @Author: John
  */
 import { api_preprelion_list } from "@/server/api";
@@ -25,7 +25,7 @@ export default function () {
       name: t("级别"),
       grow: 4,
       cell(row, rowIndex, column, id) {
-        return <div>{getLevelName(row.level)}</div>;
+        return <div>{getLevelName(row.level, row.userType)}</div>;
       },
     },
     {

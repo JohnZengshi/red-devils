@@ -8,7 +8,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import Toast from "antd-mobile/es/components/toast";
 import i18next from "i18next";
-import { Level } from "@/server/module";
+import { Level, UserHomeData } from "@/server/module";
 
 export const ua = navigator.userAgent;
 export const isIOS = /iphone|ipad|ipod|ios/i.test(ua);
@@ -84,12 +84,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getLevelName(level: Level) {
+export function getLevelName(level: Level, active?: UserHomeData["active"]) {
   switch (level) {
     case 0:
-      return i18next.t("普通非活跃");
+      return i18next.t("无等级");
     case 1:
-      return i18next.t("普通活跃");
+      if (active == 1) {
+        return i18next.t("普通活跃");
+      } else {
+        return i18next.t("普通非活跃");
+      }
     case 2:
       return i18next.t("社长");
     case 3:

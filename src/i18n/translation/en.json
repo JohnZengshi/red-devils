@@ -1,6 +1,6 @@
 {
   "AppName": "Red Devils",
-  "红魔NFT": "Red Devils NFT",
+  "红魔股权NFT": "Red Devil Equity NFT",
   "铸造 NFT": "Mint NFT",
   "级别提升": "Level Up",
   "收益记录": "Revenue Record",
@@ -103,5 +103,6 @@
   "无级别提升": "Promotion without rank",
   "没有更多数据了": "No more data",
   "升级中": "Upgrading",
-  "无等级": "No Grade"
+  "无等级": "No Grade",
+  "无效的邀请链接": "Invalid invitation link"
 }

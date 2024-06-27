@@ -95,7 +95,12 @@ export default function () {
           <div className={classes.content_box}>
             <div className={classes.box_item}>
               <span>{t("当前级别")}</span>
-              <span>{getLevelName(userUpgradeInfo?.level || 0)}</span>
+              <span>
+                {getLevelName(
+                  userUpgradeInfo?.level || 0,
+                  userUpgradeInfo?.active
+                )}
+              </span>
             </div>
             <IconFont
               className={classes.box_arrow}

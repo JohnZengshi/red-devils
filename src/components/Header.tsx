@@ -57,7 +57,7 @@ export default function () {
       <div className={classes.header}>
         <div className={classes.header_top}>
           <img className={classes.header_logo} src={logo} alt="" />
-          <span className={classes.header_title}>{t("红魔NFT")}</span>
+          <span className={classes.header_title}>{t("红魔股权NFT")}</span>
           <Popover.Menu
             mode="dark"
             actions={langColums}

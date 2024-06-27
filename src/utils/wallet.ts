@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:55:07
- * @LastEditTime: 2024-06-25 14:47:58
+ * @LastEditTime: 2024-06-26 15:18:22
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -106,8 +106,6 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
         });
       } catch (error) {
         // 用户拒绝签名或者遇到错误，断开链接
-        const { connector } = getAccount(config);
-        await disconnect(config, { connector });
         loadingToast.close();
         loginOut();
         throw new Error("用户拒绝签名或者遇到错误，断开链接");
@@ -127,33 +125,21 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
         useUserStore.setState((state) => {
           return { ...state, Token: loginInfoData.data?.token };
         });
-
-        // TODO 判断用户是否绑定关系✔
-        const { data } =
-          await api_query_whether_the_user_is_binding_relationship().send({});
-        if (
-          typeof data?.data.result == "boolean" &&
-          data?.data.result === false
-        ) {
-          const inviteCode = getUrlQueryParam(UrlQueryParamsKey.INVITE_CODE);
-          if (inviteCode) {
-            const { data } = await api_binding_invitation_relationship().send({
-              data: {
-                shareCode: inviteCode,
-              },
-            });
-          }
-        }
         reslove();
         loadingToast.close();
       }
     } else {
+      const inviteCode = getUrlQueryParam(UrlQueryParamsKey.INVITE_CODE);
+      if (!inviteCode) {
+        Toast.show({ icon: "fail", content: i18next.t("无效的邀请链接") });
+        return loginOut();
+      }
       // 注册
       await api_signUp().send({
         data: {
           account: address,
           publicKey,
-          shareCode: "",
+          shareCode: inviteCode,
           chainType: 2,
         },
       });
@@ -164,7 +150,9 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
   });
 }
 
-export function loginOut() {
+export async function loginOut() {
+  const { connector } = getAccount(config);
+  await disconnect(config, { connector });
   useUserStore.setState((state) => {
     return { ...state, Address: "", Token: "" };
   });
