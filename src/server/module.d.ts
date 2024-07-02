@@ -22,7 +22,7 @@ export interface UserHomeData {
   active: 0 | 1; // "0=非活跃  1=活跃用户"
 }
 export interface UserIncome {
-  coinId: number;
+  coinId: 1 | 2; // 1 USDT 2 ROMB
   coinName: string;
   collection: number;
   createTime: string;

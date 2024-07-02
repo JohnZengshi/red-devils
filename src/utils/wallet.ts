@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:55:07
- * @LastEditTime: 2024-06-26 15:18:22
+ * @LastEditTime: 2024-07-02 11:38:59
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -24,7 +24,7 @@ import {
 } from "@wagmi/core";
 import Toast from "antd-mobile/es/components/toast";
 import i18next from "i18next";
-import { getUrlQueryParam } from ".";
+import { getUrlParameterByName } from ".";
 import { UrlQueryParamsKey } from "@/constants";
 
 /**
@@ -129,13 +129,13 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
         loadingToast.close();
       }
     } else {
-      const inviteCode = getUrlQueryParam(UrlQueryParamsKey.INVITE_CODE);
+      const inviteCode = getUrlParameterByName(UrlQueryParamsKey.INVITE_CODE);
       if (!inviteCode) {
         Toast.show({ icon: "fail", content: i18next.t("无效的邀请链接") });
         return loginOut();
       }
       // 注册
-      await api_signUp().send({
+      const { data } = await api_signUp().send({
         data: {
           account: address,
           publicKey,
@@ -143,7 +143,11 @@ export async function signAndLogin(address?: `0x${string}`): Promise<void> {
           chainType: 2,
         },
       });
-      await signAndLogin(address);
+      if (data?.code === 0) {
+        await signAndLogin(address);
+      } else {
+        return loginOut();
+      }
       reslove();
       loadingToast.close();
     }

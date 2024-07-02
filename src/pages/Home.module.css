@@ -204,7 +204,7 @@
       flex-direction: row;
       align-items: center;
       li {
-        width: 76px;
+        min-width: 76px;
         height: 34px;
 
         opacity: 1;
@@ -220,6 +220,7 @@
         color: #4d4d4d;
         text-align: center;
         line-height: 34px;
+        padding: 0 10px;
         &.nftToken_tab_active {
           border-radius: 10px;
           opacity: 1;
@@ -582,6 +583,43 @@
           color: #ffffff;
         }
       }
+    }
+  }
+
+  .equityNft {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 15px;
+
+    border-radius: 14px;
+    opacity: 1;
+    background: #171719;
+    margin-top: 26px;
+
+    > svg {
+      width: 26px;
+      height: 26px;
+
+      &:nth-of-type(2) {
+        margin-left: auto;
+      }
+    }
+    span {
+      opacity: 1;
+
+      font-family: DM Sans;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0em;
+
+      font-variation-settings: "opsz" auto;
+      font-feature-settings: "kern" on;
+      color: #ffffff;
+
+      z-index: 1;
     }
   }
 

@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 10:09:21
- * @LastEditTime: 2024-06-21 14:47:26
+ * @LastEditTime: 2024-07-02 11:36:28
  * @Author: John
  */
 import { Client } from "@hyper-fetch/core";
@@ -17,9 +17,11 @@ import i18next from "i18next";
 function initClient({
   requiresToken,
   requiresAddress,
+  catchErr,
 }: {
   requiresToken: boolean;
   requiresAddress: boolean;
+  catchErr: boolean;
 }) {
   return new Client({ url: import.meta.env.VITE_BASE_API_URL })
     .onAuth(async (req) => {
@@ -59,6 +61,7 @@ function initClient({
       const resData: BASE_RESPONSE = res.data;
       if (resData.code !== 200 && resData.code !== 0) {
         if (resData.msg) Toast.show({ content: resData.msg, icon: "fail" });
+        if (catchErr) return res;
         throw new Error(resData.msg || "client on response error");
       }
       return res;
@@ -69,12 +72,14 @@ export const POST = <P = any, R = any, QueryParams = any>({
   url,
   requiresToken = true,
   requiresAddress = true,
+  catchErr = false,
 }: {
   url: string;
   requiresToken?: boolean;
   requiresAddress?: boolean;
+  catchErr?: boolean;
 }) => {
-  return initClient({ requiresToken, requiresAddress }).createRequest<
+  return initClient({ requiresToken, requiresAddress, catchErr }).createRequest<
     BASE_RESPONSE<R>,
     P,
     any,
@@ -89,12 +94,14 @@ export const GET = <P = any, R = any>({
   url,
   requiresToken = true,
   requiresAddress = true,
+  catchErr = false,
 }: {
   url: string;
   requiresToken?: boolean;
   requiresAddress?: boolean;
+  catchErr?: boolean;
 }) => {
-  return initClient({ requiresToken, requiresAddress }).createRequest<
+  return initClient({ requiresToken, requiresAddress, catchErr }).createRequest<
     BASE_RESPONSE<R>,
     any,
     any,

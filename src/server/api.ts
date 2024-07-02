@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 10:28:21
- * @LastEditTime: 2024-06-25 14:47:34
+ * @LastEditTime: 2024-07-02 11:36:40
  * @Author: John
  */
 import { GET, POST } from "./client";
@@ -52,7 +52,7 @@ export function api_signUp() {
       chainType: 2;
     },
     any
-  >({ url: "/api/account/signUp", requiresToken: false });
+  >({ url: "/api/account/signUp", requiresToken: false, catchErr: true });
 }
 
 // 获取钱包签名串

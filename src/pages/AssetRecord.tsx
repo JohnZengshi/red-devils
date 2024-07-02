@@ -1,12 +1,12 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 17:57:13
- * @LastEditTime: 2024-06-25 16:17:20
+ * @LastEditTime: 2024-07-02 17:43:52
  * @Author: John
  */
 import Tabs from "antd-mobile/es/components/tabs";
 import classes from "./AssetRecord.module.css";
-import { cn, getUrlQueryParam } from "@/utils";
+import { cn, getUrlParameterByName } from "@/utils";
 import CapsuleTabs from "antd-mobile/es/components/capsule-tabs";
 import RecordsItem from "@/components/RecordsItem";
 import { useTranslation } from "react-i18next";
@@ -14,12 +14,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { api_pagling_query_income_record } from "@/server/api";
 import { IncomeRecord, IncomeRecordType } from "@/server/module";
 import { Empty, InfiniteScroll } from "antd-mobile";
-import { CoinName } from "@/constants";
 
 export default function () {
   const { t } = useTranslation();
-  const coinId = useMemo(() => getUrlQueryParam("id"), []);
-  const coinName = useMemo(() => getUrlQueryParam("name"), []);
+  const id = useMemo(() => getUrlParameterByName("id"), []);
+  const coinId = useMemo(() => getUrlParameterByName("coinId"), []);
   const currentType = useRef<1 | 2>(2);
   const [issueRecords, setIssueRecords] = useState<IncomeRecord["records"]>([]);
   const [receiveRecord, setReceiveRecord] = useState<IncomeRecord["records"]>(
@@ -35,7 +34,7 @@ export default function () {
 
   async function getRecord() {
     return new Promise<void>(async (reslove) => {
-      if (!coinId) return;
+      if (!id) return;
 
       if (!hasMore.current) return;
 
@@ -43,7 +42,7 @@ export default function () {
       pageNum.current++;
       const { data } = await api_pagling_query_income_record().send({
         queryParams: {
-          id: coinId,
+          id,
           type: currentType.current,
           pageNum: pageNum.current,
           pageSize,
@@ -91,7 +90,7 @@ export default function () {
         }}
       >
         <Tabs.Tab className={classes.tab} title={t("发放记录")} key="1">
-          {coinName == CoinName.USDT && (
+          {coinId == "1" && (
             <CapsuleTabs
               onChange={(key) => {
                 switch (key) {
@@ -117,7 +116,7 @@ export default function () {
             </CapsuleTabs>
           )}
 
-          {coinName == CoinName.RMOB && (
+          {coinId == "2" && (
             <CapsuleTabs
               onChange={(key) => {
                 switch (key) {

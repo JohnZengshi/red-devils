@@ -19,7 +19,7 @@ import InvitationList from "./pages/InvitationList";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import useUserStore from "./store/User";
-import { getUrlQueryParam } from "./utils";
+import { getUrlParameterByName } from "./utils";
 import { UrlQueryParamsKey } from "./constants";
 import { signAndLogin } from "./utils/wallet";
 import { useAccount } from "wagmi";
@@ -29,7 +29,9 @@ function App() {
   const { address } = useAccount();
   useEffect(() => {
     i18n.changeLanguage(currantLang);
-    UpdateInviteCode(getUrlQueryParam(UrlQueryParamsKey.INVITE_CODE) || "");
+    UpdateInviteCode(
+      getUrlParameterByName(UrlQueryParamsKey.INVITE_CODE) || ""
+    );
     return () => {};
   }, []);
 

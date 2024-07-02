@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import IconTransfer from './IconTransfer';
 import IconDiqiu from './IconDiqiu';
 import IconTuichu from './IconTuichu';
 import IconChevronsrightshuangyoujiantou from './IconChevronsrightshuangyoujiantou';
@@ -11,6 +12,7 @@ import IconTongdun from './IconTongdun';
 import IconJindun from './IconJindun';
 import IconXingdun from './IconXingdun';
 import IconGuanjun from './IconGuanjun';
+export { default as IconTransfer } from './IconTransfer';
 export { default as IconDiqiu } from './IconDiqiu';
 export { default as IconTuichu } from './IconTuichu';
 export { default as IconChevronsrightshuangyoujiantou } from './IconChevronsrightshuangyoujiantou';
@@ -21,7 +23,7 @@ export { default as IconJindun } from './IconJindun';
 export { default as IconXingdun } from './IconXingdun';
 export { default as IconGuanjun } from './IconGuanjun';
 
-export type IconNames = 'diqiu' | 'tuichu' | 'chevronsrightshuangyoujiantou' | 'fuzhi' | 'icon_arrow_left' | 'tongdun' | 'jindun' | 'xingdun' | 'guanjun';
+export type IconNames = 'transfer' | 'diqiu' | 'tuichu' | 'chevronsrightshuangyoujiantou' | 'fuzhi' | 'icon_arrow_left' | 'tongdun' | 'jindun' | 'xingdun' | 'guanjun';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -31,6 +33,8 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'transfer':
+      return <IconTransfer {...rest} />;
     case 'diqiu':
       return <IconDiqiu {...rest} />;
     case 'tuichu':

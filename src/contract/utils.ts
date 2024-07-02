@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-06-27 18:00:07
+ * @LastEditTime: 2024-07-02 17:40:49
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -16,8 +16,10 @@ import { encodeFunctionData } from "viem/utils";
 import erc20Abi from "@/contract/abi/erc20abi.json";
 import usdtAbi from "@/contract/abi/USDT.json";
 import RedDevilsAbi from "@/contract/abi/RedDevils.json";
+import receiveAbi from "@/contract/abi/receive.json";
 import i18next from "i18next";
 import { BaseError } from "wagmi";
+import { UserIncome } from "@/server/module";
 
 /**
  * @description 获取代币余额
@@ -270,19 +272,76 @@ export async function upGradeByContract(amount: bigint, orderID: string) {
 }
 
 /**
- * receiveByContract
+ * receiveRMABByContract
  * @param amount
+ * @param paymentTime
  * @param orderID
+ * @param hashStr
  * @returns
  */
-export async function receiveByContract(
+export async function receiveRMABByContract(
   amount: bigint,
   paymentTime: number,
   orderID: string,
   hashStr: string
 ) {
   console.log("pay buy contract params", { amount, orderID });
-  console.log("NETWORK_USDT:", import.meta.env.VITE_NETWORK_USDT_ADDRESS);
+
+  return new Promise<string>(async (reslove, reject) => {
+    try {
+      console.log("参数:", amount, paymentTime, orderID, hashStr);
+      estimateGas(config, {
+        to: import.meta.env.VITE_RECEIVE_RAMB_CONTRACT_ADDRESS,
+        data: encodeFunctionData({
+          abi: receiveAbi,
+          functionName: "reward",
+          args: [amount, paymentTime, orderID, hashStr],
+        }),
+      })
+        .then((gas) => {
+          const gasPrice = (gas * 12n) / 10n;
+          console.log("estimate gas:%d , my gas: %d", gas, gasPrice);
+          writeContract(config, {
+            abi: receiveAbi,
+            address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
+            functionName: "reward",
+            args: [amount, paymentTime, orderID, hashStr],
+            gas: gasPrice,
+          })
+            .then((receipt) => {
+              console.log("write contract success!, receipt:", receipt);
+              reslove(receipt);
+            })
+            .catch((err: BaseError) => {
+              console.log("reward rmab Transaction err", err);
+              reject(err);
+            });
+        })
+        .catch((err: BaseError) => {
+          console.log("reward rmab estimateGas err", err);
+          reject(err);
+        });
+    } catch (err) {
+      reject(new BaseError(`${err}`));
+    }
+  });
+}
+
+/**
+ * receiveUSDTByContract
+ * @param amount
+ * @param paymentTime
+ * @param orderID
+ * @param hashStr
+ * @returns
+ */
+export async function receiveUSDTByContract(
+  amount: bigint,
+  paymentTime: number,
+  orderID: string,
+  hashStr: string
+) {
+  console.log("pay buy contract params", { amount, orderID });
 
   return new Promise<string>(async (reslove, reject) => {
     try {
@@ -322,4 +381,27 @@ export async function receiveByContract(
       reject(new BaseError(`${err}`));
     }
   });
+}
+
+/**
+ * receiveByContract
+ * @param type
+ * @param amount
+ * @param paymentTime
+ * @param orderID
+ * @param hashStr
+ * @returns
+ */
+export async function receiveByContract(
+  type: UserIncome["coinId"],
+  amount: bigint,
+  paymentTime: number,
+  orderID: string,
+  hashStr: string
+) {
+  if (type == 1) {
+    return receiveUSDTByContract(amount, paymentTime, orderID, hashStr);
+  } else if (type == 2) {
+    return receiveRMABByContract(amount, paymentTime, orderID, hashStr);
+  }
 }
