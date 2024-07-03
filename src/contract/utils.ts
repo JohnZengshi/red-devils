@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-07-02 17:40:49
+ * @LastEditTime: 2024-07-03 10:44:58
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -303,7 +303,7 @@ export async function receiveRMABByContract(
           console.log("estimate gas:%d , my gas: %d", gas, gasPrice);
           writeContract(config, {
             abi: receiveAbi,
-            address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
+            address: import.meta.env.VITE_RECEIVE_RAMB_CONTRACT_ADDRESS,
             functionName: "reward",
             args: [amount, paymentTime, orderID, hashStr],
             gas: gasPrice,
