@@ -2,6 +2,35 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "orderId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paymentType",
+        "type": "uint256"
+      }
+    ],
+    "name": "buyHMNFT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "hongMoAddr",
         "type": "address"
@@ -14,11 +43,6 @@
       {
         "internalType": "address",
         "name": "p1",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "p2",
         "type": "address"
       }
     ],
@@ -104,6 +128,60 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paymentTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "orderId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "hashStr",
+        "type": "bytes32"
+      }
+    ],
+    "name": "reward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "rewardNFT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -127,6 +205,89 @@
     ],
     "name": "RewardSuccess",
     "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setNFTAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "a",
+        "type": "address"
+      }
+    ],
+    "name": "setPayeeAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "p",
+        "type": "uint256"
+      }
+    ],
+    "name": "setPrice",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setUSDCAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "orderId",
+        "type": "uint256"
+      }
+    ],
+    "name": "upgradePrivilege",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "anonymous": false,
@@ -154,31 +315,9 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "orderId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "paymentType",
-        "type": "uint256"
-      }
-    ],
-    "name": "buyHMNFT",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -242,19 +381,6 @@
   },
   {
     "inputs": [],
-    "name": "payee2",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "price",
     "outputs": [
       {
@@ -264,111 +390,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "paymentTime",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "orderId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "hashStr",
-        "type": "bytes32"
-      }
-    ],
-    "name": "reward",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "addr",
-        "type": "address"
-      }
-    ],
-    "name": "setNFTAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "a",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "b",
-        "type": "address"
-      }
-    ],
-    "name": "setPayeeAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "p",
-        "type": "uint256"
-      }
-    ],
-    "name": "setPrice",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "addr",
-        "type": "address"
-      }
-    ],
-    "name": "setTokenIndex",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "addr",
-        "type": "address"
-      }
-    ],
-    "name": "setUSDCAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -398,37 +419,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "orderId",
-        "type": "uint256"
-      }
-    ],
-    "name": "upgradePrivilege",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "usdc",
     "outputs": [
@@ -439,13 +429,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "withdraw",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

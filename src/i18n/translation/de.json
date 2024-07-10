@@ -42,7 +42,7 @@
   "提升级别": "Levelaufstieg",
   "社长": "Vorsitzender",
   "当前升级价格：": "Aktueller Upgrade-Preis:",
-  "升级费用xxx USDT起，其中gas费2USDT，剩余部分50%进入资金池，另外50%平均分给所有升级成功的社长和基金会社长。自第二个社长升级开始，每升级一名社长所需铸造费用增加xxx，既第二位社长升级铸造费用为xxxu+xxx*xxx=xxx USDT，以此类推。": "Upgrade-Kosten ab {{value1}} USDT, davon 2USDT Gas-Gebühren, 50% des Restbetrags gehen in den Liquiditätspool und die anderen 50% werden auf alle erfolgreichen Vorsitzenden und Fundmanager aufgeteilt. Ab dem zweiten Vorsitzenden steigen die Prägekosten um {{value2}} pro Aufstieg, also {{value1}}u+{{value1}}*{{value2}}={{value3}} USDT für den zweiten, usw.",
+  "升级费用xxx USDT起，50%进入资金池，另外50%平均分给所有升级成功的社长和基金会社长。自第二个社长升级开始，每升级一名社长所需铸造费用增加xxx，既第二位社长升级铸造费用为xxxu+xxx*xxx=xxx USDT，以此类推。": "Upgrade-Kosten ab {{value1}} USDT, 50% des Restbetrags gehen in den Liquiditätspool und die anderen 50% werden auf alle erfolgreichen Vorsitzenden und Fundmanager aufgeteilt. Ab dem zweiten Vorsitzenden steigen die Prägekosten um {{value2}} pro Aufstieg, also {{value1}}u+{{value1}}*{{value2}}={{value3}} USDT für den zweiten, usw.",
   "升级条件": "Upgrade-Bedingungen",
   "普通会员": "Normales Mitglied",
   "(限量xxx个)": "(Begrenzt auf {{value}} Stück)",
@@ -105,5 +105,8 @@
   "升级中": "Wird aktualisiert",
   "无等级": "Keine Bewertung",
   "无效的邀请链接": "Ungültiger Einladungslink",
-  "交易红魔股权NFT": "Handel mit Red Devil Equity NFT"
+  "交易红魔股权NFT": "Handel mit Red Devil Equity NFT",
+  "上级链接": "Link des Vorgesetzten",
+  "邀请链接：": "Einladungslink:",
+  "上级地址：": "Adresse des Vorgesetzten:"
 }

@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-18 10:28:21
- * @LastEditTime: 2024-07-02 11:36:40
+ * @LastEditTime: 2024-07-10 11:53:39
  * @Author: John
  */
 import { GET, POST } from "./client";
@@ -143,5 +143,12 @@ export function api_binding_invitation_relationship() {
 export function api_query_whether_the_user_is_binding_relationship() {
   return GET<any, { result: boolean }>({
     url: "/api/account/bindOrNot",
+  });
+}
+
+// 获取用户上级
+export function api_get_user_superiors() {
+  return GET<any, { address: string; shareCode: string }>({
+    url: "/api/user/getTheSuperior",
   });
 }

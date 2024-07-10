@@ -13,7 +13,11 @@ import { BaseError, useAccount } from "wagmi";
 import { useNavigate } from "react-router-dom";
 import { Button, Dialog, Empty, PullToRefresh, Toast } from "antd-mobile";
 import { loginOut } from "@/utils/wallet";
-import { api_claim_income, api_get_homepage_user_data } from "@/server/api";
+import {
+  api_claim_income,
+  api_get_homepage_user_data,
+  api_get_user_superiors,
+} from "@/server/api";
 import { UserHomeData, UserIncome } from "@/server/module";
 import { UrlQueryParamsKey } from "@/constants";
 import { receiveByContract } from "@/contract/utils";
@@ -29,6 +33,10 @@ export default function () {
   const [tabIndex, setTabIndex] = useState(0);
   const navigate = useNavigate();
   const [userData, setUserData] = useState<UserHomeData>();
+
+  const [superiorsAddress, setSuperiorsAddress] = useState<string>();
+  const [superiorsShareCode, setSuperiorsShareCode] = useState<string>();
+
   const statusRecord: Record<PullStatus, string> = {
     pulling: "Pull down to refresh",
     canRelease: "Release to refresh immediately",
@@ -42,6 +50,11 @@ export default function () {
       }`,
     [userData]
   );
+  const superiorInvitationLink = useMemo(
+    () =>
+      `${location.origin}/#/?${UrlQueryParamsKey.INVITE_CODE}=${superiorsShareCode}`,
+    [superiorsShareCode]
+  );
   const receiveLoadingToast = useRef<ToastHandler>();
   const {
     transcationStatus,
@@ -51,6 +64,14 @@ export default function () {
 
   useEffect(() => {
     getHomeData();
+    if (Token) {
+      api_get_user_superiors()
+        .send({})
+        .then((res) => {
+          setSuperiorsAddress(res.data?.data.address);
+          setSuperiorsShareCode(res.data?.data.shareCode);
+        });
+    }
     return () => {};
   }, [Token]);
 
@@ -421,6 +442,33 @@ export default function () {
                   "普通会员每邀请铸造一个NFT可获得一份空投福利；推荐铸造20个NFT的可升级为会长；团队中拥有20位会长可升级为基金会社长；邀请越多级别越高福利越多。"
                 )}
               </span>
+
+              {superiorsAddress && (
+                <>
+                  <span>{t("上级链接")}</span>
+                  <div className={classes.superior_content_link}>
+                    <>
+                      <span>
+                        {shortenString(superiorInvitationLink, 18, 18)}
+                      </span>
+                      <IconFont
+                        onClick={() => {
+                          copyText(superiorInvitationLink);
+                        }}
+                        className={classes.invite_content_icon}
+                        name="fuzhi"
+                        color={"#fff"}
+                      />{" "}
+                    </>
+                  </div>
+                  <div className={classes.superior_content_link}>
+                    <>
+                      <span>{t("上级地址：")}</span>
+                      <span>{shortenString(superiorsAddress, 15, 15)}</span>
+                    </>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 

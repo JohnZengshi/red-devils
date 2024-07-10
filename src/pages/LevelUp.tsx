@@ -122,7 +122,7 @@ export default function () {
             <span>{t("价格说明：")}</span>
             <span>
               {t(
-                "升级费用xxx USDT起，其中gas费2USDT，剩余部分50%进入资金池，另外50%平均分给所有升级成功的社长和基金会社长。自第二个社长升级开始，每升级一名社长所需铸造费用增加xxx，既第二位社长升级铸造费用为xxxu+xxx*xxx=xxx USDT，以此类推。",
+                "升级费用xxx USDT起，50%进入资金池，另外50%平均分给所有升级成功的社长和基金会社长。自第二个社长升级开始，每升级一名社长所需铸造费用增加xxx，既第二位社长升级铸造费用为xxxu+xxx*xxx=xxx USDT，以此类推。",
                 {
                   value1: userUpgradeInfo?.upgradeFees || 0,
                   value2: userUpgradeInfo?.proportion || "0%",
