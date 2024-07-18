@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-07-03 10:44:58
+ * @LastEditTime: 2024-07-18 18:33:04
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -167,14 +167,15 @@ export async function payByContract(
       if (approvedU < amount) {
         await authorizedU(amount);
       }
-
-      console.log("参数:", amount, orderID, payInduction);
+      const NFTURI =
+        "https://gateway.pinata.cloud/ipfs/QmWxBbFG3WJXVTDqrFUPhMuLmeHqKNBBkzSuvQyyk7ftfi/CodeConqueror-Bnb.json";
+      console.log("参数:", amount, orderID, payInduction, NFTURI);
       estimateGas(config, {
         to: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
         data: encodeFunctionData({
           abi: RedDevilsAbi,
           functionName: "buyHMNFT",
-          args: [amount, orderID, payInduction],
+          args: [amount, orderID, payInduction, NFTURI],
         }),
       })
         .then((gas) => {
@@ -184,7 +185,7 @@ export async function payByContract(
             abi: RedDevilsAbi,
             address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
             functionName: "buyHMNFT",
-            args: [amount, orderID, payInduction],
+            args: [amount, orderID, payInduction, NFTURI],
             gas: gasPrice,
           })
             .then((receipt) => {

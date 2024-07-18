@@ -15,6 +15,11 @@
         "internalType": "uint256",
         "name": "paymentType",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "NFTURI",
+        "type": "string"
       }
     ],
     "name": "buyHMNFT",
@@ -32,7 +37,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "hongMoAddr",
+        "name": "EquityNFTAddr",
         "type": "address"
       },
       {
@@ -168,6 +173,11 @@
         "internalType": "address",
         "name": "addr",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "NFTURI",
+        "type": "string"
       }
     ],
     "name": "rewardNFT",
@@ -322,6 +332,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "EquityNFT",
+    "outputs": [
+      {
+        "internalType": "contract RedDevilEquityNFT",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -335,19 +358,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "hongMoNFT",
-    "outputs": [
-      {
-        "internalType": "contract HongMoNFT",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
