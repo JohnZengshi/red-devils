@@ -1,7 +1,7 @@
 /*
  * @LastEditors: John
  * @Date: 2024-06-19 15:48:57
- * @LastEditTime: 2024-07-18 18:33:04
+ * @LastEditTime: 2024-07-19 14:09:28
  * @Author: John
  */
 import { config } from "@/components/WalletProvider";
@@ -168,13 +168,13 @@ export async function payByContract(
         await authorizedU(amount);
       }
       const NFTURI =
-        "https://gateway.pinata.cloud/ipfs/QmWxBbFG3WJXVTDqrFUPhMuLmeHqKNBBkzSuvQyyk7ftfi/CodeConqueror-Bnb.json";
+        "https://gateway.lighthouse.storage/ipfs/bafkreicjdund46333jhrj556kkdsi7bqupyt2qi3lmylmtxcfiw7f2afe4";
       console.log("参数:", amount, orderID, payInduction, NFTURI);
       estimateGas(config, {
         to: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
         data: encodeFunctionData({
           abi: RedDevilsAbi,
-          functionName: "buyHMNFT",
+          functionName: "buyEquityNFT",
           args: [amount, orderID, payInduction, NFTURI],
         }),
       })
@@ -184,7 +184,7 @@ export async function payByContract(
           writeContract(config, {
             abi: RedDevilsAbi,
             address: import.meta.env.VITE_PURCHASED_CONTRACT_ADDRESS,
-            functionName: "buyHMNFT",
+            functionName: "buyEquityNFT",
             args: [amount, orderID, payInduction, NFTURI],
             gas: gasPrice,
           })
@@ -193,12 +193,12 @@ export async function payByContract(
               reslove(receipt);
             })
             .catch((err: BaseError) => {
-              console.log("buyHMNFT Transaction err", err);
+              console.log("buyEquityNFT Transaction err", err);
               reject(err);
             });
         })
         .catch((err: BaseError) => {
-          console.log("buyHMNFT estimateGas err", err);
+          console.log("buyEquityNFT estimateGas err", err);
           reject(err);
         });
     } catch (err) {

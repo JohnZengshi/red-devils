@@ -22,7 +22,7 @@
         "type": "string"
       }
     ],
-    "name": "buyHMNFT",
+    "name": "buyEquityNFT",
     "outputs": [
       {
         "internalType": "uint256",
