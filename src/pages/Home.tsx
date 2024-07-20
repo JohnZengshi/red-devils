@@ -1,6 +1,6 @@
 import classes from "./Home.module.css";
 import useUserStore from "@/store/User";
-import { cn, copyText, shortenString } from "@/utils";
+import { cn, copyText, padWithZero, shortenString } from "@/utils";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -261,7 +261,7 @@ export default function () {
                       {userData?.nftId ? (
                         <div className={classes.nftToken_content_nft}>
                           <div className={classes.nftToken_content_nft_top}>
-                            <span># {userData?.nftId}</span>
+                            <span># {padWithZero(userData?.nftId)}</span>
                             <span
                               onClick={() => {
                                 navigate("/mint");

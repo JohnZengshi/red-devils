@@ -113,3 +113,8 @@ export function getUrlParameterByName(name: string, url?: string) {
   console.log("url params:", results);
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+export function padWithZero(num: number) {
+  // 将数字转换为字符串，并在前面补足零使总长度为5
+  return String(num).padStart(5, "0");
+}
